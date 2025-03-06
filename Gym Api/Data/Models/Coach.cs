@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Gym_Api.Data.Models
 {
@@ -14,10 +16,15 @@ namespace Gym_Api.Data.Models
 		public int Experience_Years { get; set; }
 		public string Availability { get; set; }
 		public double Ratings { get; set; }
-
-		public ICollection<Assignment> Assignments { get; set; }
-		public ICollection<Subscribe> Subscriptions { get; set; }
-		public ICollection<NutritionPlan> NutritionPlans { get; set; }
+		[JsonIgnore]
+		[IgnoreDataMember]
+		public virtual ICollection<Assignment> Assignments { get; set; }
+		[JsonIgnore]
+		[IgnoreDataMember]
+		public virtual ICollection<Subscribe> Subscriptions { get; set; }
+		[JsonIgnore]
+		[IgnoreDataMember]
+		public virtual ICollection<NutritionPlan> NutritionPlans { get; set; }
 
 	}
 }

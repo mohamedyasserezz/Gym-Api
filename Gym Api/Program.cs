@@ -1,5 +1,6 @@
 
 using Gym_Api.Data;
+using Gym_Api.Survices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
@@ -15,6 +16,8 @@ namespace Gym_Api
 			// Add services to the container.
 			builder.Services.AddDbContext<AppDbContext>(op =>
 			op.UseSqlServer(builder.Configuration.GetConnectionString("myCon")));
+
+			builder.Services.AddScoped<ICoachService, CoachService>();
 
 			builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
