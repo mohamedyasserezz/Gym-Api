@@ -1,4 +1,5 @@
-﻿using Gym_Api.Data.Models;
+﻿using Gym_Api.Contract;
+using Gym_Api.Data.Models;
 using Gym_Api.Survices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,11 @@ namespace Gym_Api.Controllers
 	public class CoachesController : ControllerBase
 	{
 		private readonly ICoachService _coachService;
-
 		public CoachesController(ICoachService coachService)
 		{
 			_coachService = coachService;
 		}
+
 
 		[HttpGet]
 		public async Task<IActionResult> GetCoaches()
@@ -35,15 +36,17 @@ namespace Gym_Api.Controllers
 			return Ok(coach);
 		}
 
+
 		[HttpPost]
-		public async Task<IActionResult> CreateCoach([FromBody] Coach coach)
+		public async Task<IActionResult> CreateCoach([FromBody] CreateCoachRequest coach)
 		{
 			var newCoach = await _coachService.CreateCoachAsync(coach);
 			return Ok(newCoach);
 		}
 
+
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateCoach(int id, [FromBody] Coach coach)
+		public async Task<IActionResult> UpdateCoach([FromRoute]int id, [FromBody] Coach coach)
 		{
 			var result = await _coachService.UpdateCoachAsync(id, coach);
 			if (!result)
@@ -52,8 +55,10 @@ namespace Gym_Api.Controllers
 			}
 			return NoContent();
 		}
+
+
 		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteCoach(int id)
+		public async Task<IActionResult> DeleteCoach([FromRoute]int id)
 		{
 			var result = await _coachService.DeleteCoachAsync(id);
 			if (!result)

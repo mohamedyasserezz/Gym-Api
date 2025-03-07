@@ -1,4 +1,5 @@
-﻿using Gym_Api.Data.Models;
+﻿using Gym_Api.Contract;
+using Gym_Api.Data.Models;
 
 namespace Gym_Api.Survices
 {
@@ -6,7 +7,7 @@ namespace Gym_Api.Survices
 	{
 		public Task<List<Coach>> GetAllCoachesAsync();
 		public Task<Coach?> GetCoachByIdAsync(int id);
-		public Task<Coach> CreateCoachAsync(Coach coach);
+		public Task<Coach> CreateCoachAsync(CreateCoachRequest coach);
 		public Task<bool> UpdateCoachAsync(int id, Coach updatedCoach);
 		public Task<bool> DeleteCoachAsync(int id);
 	}

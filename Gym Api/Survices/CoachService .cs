@@ -1,4 +1,5 @@
-﻿using Gym_Api.Data;
+﻿using Gym_Api.Contract;
+using Gym_Api.Data;
 using Gym_Api.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,11 +21,23 @@ namespace Gym_Api.Survices
 		{
 			return await _context.Coaches.FindAsync(id);
 		}
-		public async Task<Coach> CreateCoachAsync(Coach coach)
+		public async Task<Coach> CreateCoachAsync(CreateCoachRequest coachrequest)
 		{
+			var coach = new Coach
+			{
+				Fname = coachrequest.Fname,
+				lname = coachrequest.Lname,
+				Email = coachrequest.Email,
+				Availability = coachrequest.Availability,
+				Experience_Years = coachrequest.Experience_Years,
+				Portfolio_Link = coachrequest.Portfolio_Link,
+				Password = coachrequest.Password,
+				Ratings = coachrequest.Ratings
+			};
 			_context.Coaches.Add(coach);
 			await _context.SaveChangesAsync();
 			return coach;
+
 		}
 		public async Task<bool> UpdateCoachAsync(int id, Coach updatedCoach)
 		{
@@ -32,7 +45,7 @@ namespace Gym_Api.Survices
 			if (coach == null) return false;
 
 			coach.Fname = updatedCoach.Fname;
-			coach.Lname = updatedCoach.Lname;
+			coach.lname = updatedCoach.lname;
 			coach.Email = updatedCoach.Email;
 			coach.Password = updatedCoach.Password;
 			coach.Portfolio_Link= updatedCoach.Portfolio_Link;
