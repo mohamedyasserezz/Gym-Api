@@ -17,8 +17,9 @@ namespace Gym_Api
 			builder.Services.AddDbContext<AppDbContext>(op =>
 			op.UseSqlServer(builder.Configuration.GetConnectionString("myCon")));
 
-			builder.Services.AddScoped<ICoachService, CoachService>();
-			builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IExerciseSurvice, ExerciseSurvice>();
+            builder.Services.AddScoped<INutritionplanService, NutritionplanService>();
 
 			builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

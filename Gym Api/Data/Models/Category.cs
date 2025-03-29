@@ -7,7 +7,7 @@ namespace Gym_Api.Data.Models
 		[Key]
 		public int Category_ID { get; set; }
 		public string Category_Name { get; set; }
-		public string Category_Description { get; set; }
-		public ICollection<Exercise> Exercises { get; set; }
+		public string ImageUrl { get; set; }
+		public ICollection<Exercise> Exercises = new List<Exercise>();
 	}
 }

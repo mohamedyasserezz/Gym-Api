@@ -19,10 +19,10 @@ namespace Gym_Api.Data.Models
 		public string Subscription_Status { get; set; }
 		public string Fitness_Goal { get; set; }
 
-		public ICollection<Assignment> Assignments { get; set; }
-		public ICollection<Subscribe> Subscriptions { get; set; }
+		public ICollection<Assignment> Assignments = new List<Assignment>();
+		public ICollection<Subscribe> Subscriptions = new List<Subscribe>();
 		public NutritionPlan NutritionPlan { get; set; }
-		public ICollection<Order> Orders { get; set; }
+		public ICollection<Order> Orders = new List<Order>();
 
 	}
 }

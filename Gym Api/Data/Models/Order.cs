@@ -11,7 +11,7 @@ namespace Gym_Api.Data.Models
 		public string Order_Status { get; set; }
 		public int User_ID { get; set; }
 		public User User { get; set; }
-		public ICollection<OrderItem> OrderItems { get; set; }
+		public ICollection<OrderItem> OrderItems = new List <OrderItem>();
 
 	}
 }
