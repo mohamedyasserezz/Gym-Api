@@ -44,7 +44,7 @@ namespace Gym_Api.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateCategory([FromRoute]int id,[FromBody]UpdateExerciseDto exerciseDto)
+		public async Task<IActionResult> Updateexercise([FromRoute]int id,[FromBody]UpdateExerciseDto exerciseDto)
 		{
 			var updateexercise = await _exerciseSurvice.UpdateExerciseAsync(id, exerciseDto);
 			if (!updateexercise) 

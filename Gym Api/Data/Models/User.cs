@@ -14,9 +14,6 @@ namespace Gym_Api.Data.Models
 		public double Weight { get; set; }
 		public DateTime BDate { get; set; }
 		public string Gender { get; set; }
-		public DateTime Payment_History { get; set; }
-		public DateTime Registration_Date { get; set; }
-		public string Subscription_Status { get; set; }
 		public string Fitness_Goal { get; set; }
 
 		public ICollection<Assignment> Assignments = new List<Assignment>();

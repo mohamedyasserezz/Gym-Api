@@ -18,9 +18,9 @@ namespace Gym_Api.Survices
 			return await _context.NutritionPlans.ToListAsync();
 		}
 
-		public async Task<NutritionPlan?> GetNutritionPlanByIdAsync(int id) 
+		public async Task<NutritionPlan?> GetNutritionPlanByIdAsync(int userid, int CoachId) 
 		{
-			return await _context.NutritionPlans.FirstOrDefaultAsync(c => c.ID == id);
+			return await _context.NutritionPlans.FirstOrDefaultAsync(c => c.ID == userid && c.Coach_ID == CoachId);
 		}
 
 		public async Task<NutritionPlan> AddNewNutritionplanAsync(CreateNewNutritionplan createNewNutritionplan) 

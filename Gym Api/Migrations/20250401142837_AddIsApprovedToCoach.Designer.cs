@@ -4,6 +4,7 @@ using Gym_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250401142837_AddIsApprovedToCoach")]
+    partial class AddIsApprovedToCoach
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,9 +44,6 @@ namespace Gym_Api.Migrations
 
                     b.Property<int>("Exercise_ID")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
 
                     b.Property<int>("User_ID")
                         .HasColumnType("int");
@@ -369,6 +369,16 @@ namespace Gym_Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Payment_History")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Registration_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Subscription_Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

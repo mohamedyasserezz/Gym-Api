@@ -24,13 +24,13 @@ namespace Gym_Api.Controllers
 		}
 
 
-		[HttpGet("{id}")]
-		public async Task<IActionResult> GetNutritionplanById(int id)
+		[HttpGet("{UserId},{CoachId}")]
+		public async Task<IActionResult> GetNutritionplanById(int UserId, int CoachId)
 		{
-			var nutritionplan = await _nutritionplanService.GetNutritionPlanByIdAsync(id);
+			var nutritionplan = await _nutritionplanService.GetNutritionPlanByIdAsync(UserId,CoachId);
 			if (nutritionplan == null)
 			{
-				return NotFound($"nutritionplan with Id {id} Not Exist");
+				return NotFound($"nutritionplan Not Exist");
 			}
 			return Ok(nutritionplan);
 		}

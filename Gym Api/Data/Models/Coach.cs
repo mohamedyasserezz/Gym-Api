@@ -16,6 +16,7 @@ namespace Gym_Api.Data.Models
 		public int Experience_Years { get; set; }
 		public string Availability { get; set; }
 		public double Ratings { get; set; }
+		public bool IsApproved { get; set; } = false;
 		
 		public ICollection<Assignment> Assignments = new List<Assignment>();
 		
