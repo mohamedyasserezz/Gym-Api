@@ -20,7 +20,7 @@ namespace Gym_Api.Survices
 
 		public async Task<NutritionPlan?> GetNutritionPlanByIdAsync(int userid, int CoachId) 
 		{
-			return await _context.NutritionPlans.FirstOrDefaultAsync(c => c.ID == userid && c.Coach_ID == CoachId);
+			return await _context.NutritionPlans.FirstOrDefaultAsync(c => c.User_ID == userid && c.Coach_ID == CoachId);
 		}
 
 		public async Task<NutritionPlan> AddNewNutritionplanAsync(CreateNewNutritionplan createNewNutritionplan) 
@@ -34,6 +34,8 @@ namespace Gym_Api.Survices
 				User_ID= createNewNutritionplan.User_ID,
 				Coach_ID= createNewNutritionplan.Coach_ID
 			};
+			//var coach = await _context.Coaches.Where(c => c.Coach_ID == createNewNutritionplan.Coach_ID).FirstOrDefaultAsync();
+			//newnutritionplan.Coach = coach!;
 			_context.NutritionPlans.Add(newnutritionplan);
 			await _context.SaveChangesAsync();
 			return newnutritionplan;

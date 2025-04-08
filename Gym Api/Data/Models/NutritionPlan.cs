@@ -14,10 +14,9 @@ namespace Gym_Api.Data.Models
 
 		[ForeignKey("Coach")]
 		public int Coach_ID { get; set; }
-		public Coach Coach { get; set; }
+		public Coach coach { get; set; }
 
 		[ForeignKey("User")]
 		public int User_ID { get; set; }	
-		public User User { get; set; }
 	}
 }

@@ -44,14 +44,14 @@ namespace Gym_Api.Data
 				.HasForeignKey(s => s.Coach_ID);
 
 			modelBuilder.Entity<NutritionPlan>()
-			.HasOne(np => np.Coach)
+			.HasOne(n => n.coach)
 			.WithMany(c => c.NutritionPlans)
 			.HasForeignKey(np => np.Coach_ID)
 			.OnDelete(DeleteBehavior.Cascade);
 
-			modelBuilder.Entity<NutritionPlan>()
-			.HasOne(np => np.User)
-			.WithOne(u => u.NutritionPlan)
+			modelBuilder.Entity<User>()
+			.HasOne(c => c.NutritionPlan)
+			.WithOne()
 			.HasForeignKey<NutritionPlan>(np => np.User_ID)
 			.OnDelete(DeleteBehavior.Cascade);
 
