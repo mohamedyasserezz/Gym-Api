@@ -16,52 +16,39 @@ namespace Gym_Api.Controllers
 			_exerciseSurvice = exerciseSurvice;
 		}
 
+
+
+		// ✅ Get All Exercises
 		[HttpGet]
-		public async Task<IActionResult> GetAllExercise() 
+		public async Task<IActionResult> GetAll()
 		{
-			var Exercises = await _exerciseSurvice.GetAllExercisesAsync();
-			return Ok(Exercises);
+			var exercises = await _exerciseSurvice.GetAllExercisesAsync();
+			return Ok(exercises);
 		}
 
 
-		[HttpGet("{ExerciseName}")]
-		public async Task<IActionResult> GetExerciseByname(string ExerciseName) 
+
+		// ✅ Get by Name
+		[HttpGet("{name}")]
+		public async Task<IActionResult> GetByName(string name)
 		{
-			var Exercise = await _exerciseSurvice.GetExercisesByNameAsync(ExerciseName);
-			if (Exercise == null) 
-			{
-				return NotFound($"the Exercise {ExerciseName} Not Exist");
-			}
-			return Ok(Exercise);
+			var exercise = await _exerciseSurvice.GetExerciseByNameAsync(name);
+			if (exercise == null)
+				return NotFound($"Exercise '{name}' not found.");
+
+			return Ok(exercise);
 		}
 
 
+
+		// ✅ Add New Exercise
 		[HttpPost]
-		public async Task<IActionResult> AddNewExercise([FromBody]CreateNewExerciseDto createNewExerciseDto)
+		public async Task<IActionResult> AddExercise([FromBody] CreateNewExerciseDto dto)
 		{
-			var Exercise = await _exerciseSurvice.AddNewExerciseAsync(createNewExerciseDto);
-			return Ok(Exercise);
+			var newExercise = await _exerciseSurvice.AddExerciseAsync(dto);
+			return CreatedAtAction(nameof(GetByName), new { name = newExercise.Exercise_Name }, newExercise);
 		}
 
-		[HttpPut("{id}")]
-		public async Task<IActionResult> Updateexercise([FromRoute]int id,[FromBody]UpdateExerciseDto exerciseDto)
-		{
-			var updateexercise = await _exerciseSurvice.UpdateExerciseAsync(id, exerciseDto);
-			if (!updateexercise) 
-			{
-				return NotFound("The exercise not found");
-			}
-			return Ok("Exercise updated successfully");
-		}
 
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteExercise(int id) 
-		{
-			var deleteexecise = await _exerciseSurvice.DeleteExerciseAsync(id);
-			if (!deleteexecise)
-				return NotFound("Exercise not found.");
-
-			return Ok("Exercise deleted successfully");
-		}
 	}
 }

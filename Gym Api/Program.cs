@@ -1,5 +1,6 @@
 
 using Gym_Api.Data;
+using Gym_Api.Repo;
 using Gym_Api.Survices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -17,8 +18,10 @@ namespace Gym_Api
 			builder.Services.AddDbContext<AppDbContext>(op =>
 			op.UseSqlServer(builder.Configuration.GetConnectionString("myCon")));
 
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
-            builder.Services.AddScoped<IExerciseSurvice, ExerciseSurvice>();
+			builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+			builder.Services.AddScoped<ICategoryService, CategoryService>();
+			builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+			builder.Services.AddScoped<IExerciseSurvice, ExerciseSurvice>();
             builder.Services.AddScoped<INutritionplanService, NutritionplanService>();
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<ICoachService, CoachService>();

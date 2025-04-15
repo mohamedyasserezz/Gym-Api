@@ -16,54 +16,28 @@ namespace Gym_Api.Controllers
 			_categoryService = categoryService;
 		}
 
+
+
+		// ✅ Get All
 		[HttpGet]
-		public async Task<IActionResult> GetAllCategories() 
+		public async Task<IActionResult> GetAllCategories()
 		{
 			var categories = await _categoryService.GetAllCategoriesAsync();
 			return Ok(categories);
 		}
 
 
-
-		[HttpGet("{Categoryname}")]
-		public async Task<IActionResult> GetCategoryByName(string Categoryname)
+		// ✅ Get By Name
+		[HttpGet("{name}")]
+		public async Task<IActionResult> GetCategoryByName(string name)
 		{
-			var category = await _categoryService.GetCategoriesByNameAsync(Categoryname);
-			if (category == null) 
-			{
-				return NotFound($"This category {Categoryname} not exist");
-			}
+			var category = await _categoryService.GetCategoryByNameAsync(name);
+			if (category == null)
+				return NotFound($"Category '{name}' not found.");
+
 			return Ok(category);
 		}
 
-
-		[HttpPost]
-		public async Task<IActionResult> AddCategory([FromBody] Category category)
-		{
-			var newCategory = await _categoryService.AddCategoryAsync(category);
-			return Ok(newCategory);
-		}
-
-
-		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryDto updatedCategory)
-		{
-			var result = await _categoryService.UpdateCategoryAsync(id, updatedCategory);
-			if (!result)
-				return NotFound("Category not found.");
-
-			return Ok("Category updated successfully");
-		}
-
-
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteCategory(int id)
-		{
-			var result = await _categoryService.DeleteCategoryAsync(id);
-			if (!result)
-				return NotFound("Category not found.");
-
-			return Ok("Category deleted successfully.");
-		}
+		
 	}
 }
