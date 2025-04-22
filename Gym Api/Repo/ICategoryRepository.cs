@@ -1,4 +1,6 @@
 ﻿using Gym_Api.Data.Models;
+using Gym_Api.DTO;
+using Microsoft.Identity.Client;
 
 namespace Gym_Api.Repo
 {
@@ -6,5 +8,6 @@ namespace Gym_Api.Repo
 	{
 		public Task<List<Category>> GetAllCategoriesAsyncR();
 		public Task<Category?> GetCategoryByNameAsyncR(string categoryName);
+		public Task<Category> AddNewCategory(Category category);
 	}
 }

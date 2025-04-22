@@ -1,5 +1,6 @@
 ﻿using Gym_Api.Contract;
 using Gym_Api.Data.Models;
+using Gym_Api.DTO;
 using Gym_Api.Survices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,14 @@ namespace Gym_Api.Controllers
 			return Ok(category);
 		}
 
+
+		// AddNewCategory
+		[HttpPost]
+		public async Task<IActionResult> AddNewCategory([FromForm]Addnewcategory addnewcategory)
+		{
+			var category = await _categoryService.AddNewCategoryAsync(addnewcategory);
+			return Ok(category);
+		}
 		
 	}
 }

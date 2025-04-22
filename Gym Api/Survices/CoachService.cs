@@ -1,76 +1,39 @@
 ﻿using Gym_Api.Data;
 using Gym_Api.Data.Models;
+using Gym_Api.Repo;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gym_Api.Survices
 {
 	public class CoachService : ICoachService
 	{
-		private readonly AppDbContext _context;
-		public CoachService(AppDbContext context)
+		private readonly ICoachRepository _repository;
+		public CoachService(ICoachRepository repository)
 		{
-			_context = context;
+			_repository = repository;
 		}
+
+
 
 		public async Task<List<Coach>> GetAllCoachesAsync()
 		{
-			return await _context.Coaches.ToListAsync();
+			return await _repository.GetAllAsyncR();
 		}
 
-		public async Task<List<Coach>> GetAllApprovedCoachesAsync()
+
+
+		public async Task<Coach?> GetCoachByIdAsync(int id)
 		{
-			return await _context.Coaches.Where(c => c.IsApproved == true).ToListAsync();
+			return await _repository.GetByIdAsyncR(id);
 		}
 
-		public async Task<Coach> GetCoachByIdAsync(int CoachId)
+
+
+		public async Task<List<Coach>?> GetCoachesBySpecializationAsync(string specialization)
 		{
-			return await _context.Coaches.FindAsync(CoachId);
-		}
-
-		public async Task<string> ApproveCoachAsync(int CoachId)
-		{
-			var coach = await _context.Coaches.FindAsync(CoachId);
-			if (coach == null) 
-			{
-				return "Coach Not Exist";
-			}
-			if(coach.IsApproved)
-			{
-				return "This subscription is already approved";
-			}
-			coach.IsApproved = true;
-			await _context.SaveChangesAsync();
-			return "Approved successfully";
+			return await _repository.GetBySpecializationAsyncR(specialization);
 		}
 
 
-		public async Task<string> RejectCoachAsync(int CoachId)
-		{
-			var coach = await _context.Coaches.FindAsync(CoachId);
-			if (coach == null)
-			{
-				return "Coach Not Exist";
-			}
-			if (coach.IsApproved)
-			{
-				return "The coach cannot be refused after being approved";
-			}
-
-			// رفض الكوتش
-			_context.Coaches.Remove(coach);
-			await _context.SaveChangesAsync();
-			return "Subscription was rejected and removed from the system";
-		}
-
-
-		public async Task<bool> DeleteCoachAsync(int coachId)
-		{
-			var coach = await _context.Coaches.FindAsync(coachId);
-			if (coach == null) return false;
-
-			_context.Coaches.Remove(coach);
-			await _context.SaveChangesAsync();
-			return true;
-		}
 	}
 }

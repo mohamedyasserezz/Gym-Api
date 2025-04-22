@@ -34,7 +34,7 @@ namespace Gym_Api.Repo
 			await _context.SaveChangesAsync();
 			return exercise;
 		}
-
+       
 
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Gym_Api.Data;
 using Gym_Api.Data.Models;
+using Gym_Api.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gym_Api.Repo
@@ -20,6 +21,13 @@ namespace Gym_Api.Repo
 		{
 			return await _context.Categories
 				.FirstOrDefaultAsync(c => c.Category_Name == categoryName);
+		}
+
+		public async Task<Category> AddNewCategory(Category category)
+		{
+			await _context.Categories.AddAsync(category);
+			await _context.SaveChangesAsync();	
+			return category;
 		}
 	}
 }

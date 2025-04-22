@@ -1,6 +1,7 @@
 ﻿using Gym_Api.Contract;
 using Gym_Api.Data;
 using Gym_Api.Data.Models;
+using Gym_Api.DTO;
 using Gym_Api.Repo;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +10,11 @@ namespace Gym_Api.Survices
 	public class ExerciseSurvice : IExerciseSurvice
 	{
 		private readonly IExerciseRepository _repository;
-		public ExerciseSurvice(IExerciseRepository repository)
+		private readonly IFileService _fileService;
+		public ExerciseSurvice(IExerciseRepository repository, IFileService fileService)
 		{
 			_repository = repository;
+			_fileService = fileService;	
 		}
 
 
@@ -31,20 +34,26 @@ namespace Gym_Api.Survices
 
 		public async Task<Exercise> AddExerciseAsync(CreateNewExerciseDto dto)
 		{
-			var exercise = new Exercise
+			var exercise = new Exercise()
 			{
 				Exercise_Name = dto.Exercise_Name,
 				Description = dto.Description,
-				Image_url = dto.Image_url,
-				Image_gif = dto.Image_gif,
 				Duration = dto.Duration,
 				Target_Muscle = dto.Target_Muscle,
 				Difficulty_Level = dto.Difficulty_Level,
 				Calories_Burned = dto.Calories_Burned,
 				Category_ID = dto.Category_ID
 			};
-
-			return await _repository.AddExerciseAsyncR(exercise);
+			if (dto.Image_url is not null)
+			{
+				exercise.Image_url = await _fileService.SaveFileAsync(dto.Image_url, "Exercise");
+			}
+			if(dto.Image_gif is not null)
+			{
+				exercise.Image_gif = await _fileService.SaveFileAsync(dto.Image_gif,"Exercise");
+			}
+			await _repository.AddExerciseAsyncR(exercise);
+			return exercise;
 		}
 
 	}

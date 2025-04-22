@@ -2,6 +2,7 @@
 using Gym_Api.Data.Models;
 using Gym_Api.Survices;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gym_Api.Controllers
@@ -43,10 +44,10 @@ namespace Gym_Api.Controllers
 
 		// ✅ Add New Exercise
 		[HttpPost]
-		public async Task<IActionResult> AddExercise([FromBody] CreateNewExerciseDto dto)
+		public async Task<IActionResult> AddExercise([FromForm]CreateNewExerciseDto dto)
 		{
 			var newExercise = await _exerciseSurvice.AddExerciseAsync(dto);
-			return CreatedAtAction(nameof(GetByName), new { name = newExercise.Exercise_Name }, newExercise);
+			return Ok(newExercise);
 		}
 
 

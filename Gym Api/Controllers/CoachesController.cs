@@ -15,74 +15,39 @@ namespace Gym_Api.Controllers
 			_coachService = coachService;
 		}
 
+
+		// ✅ Get All Coaches
 		[HttpGet]
-		public async Task<IActionResult> GetAllCoaches()
+		public async Task<IActionResult> GetAll()
 		{
-			var Coaches = await _coachService.GetAllCoachesAsync();
-			return Ok(Coaches);
-		}
-
-
-		[HttpGet("AllApprovedCoaches")]
-		public async Task<IActionResult> GetAllApprovedCoaches()
-		{
-			var coaches = await _coachService.GetAllApprovedCoachesAsync();
+			var coaches = await _coachService.GetAllCoachesAsync();
 			return Ok(coaches);
 		}
 
 
-		[HttpGet("CoachId{CoachId}")]
-		public async Task<IActionResult> GeyCoachById(int CoachId)
+		// ✅ Get Coach by Id
+		[HttpGet("{id}")]
+		public async Task<IActionResult> GetById(int id)
 		{
-			var coach = await _coachService.GetCoachByIdAsync(CoachId);
-			if (coach == null) 
+			var coach = await _coachService.GetCoachByIdAsync(id);
+			if (coach == null)
 			{
-				return NotFound($"CoachId {CoachId} Not Exist");
+				return NotFound($"Coach with id {id} not found");
 			}
+
 			return Ok(coach);
 		}
 
 
-
-		[HttpPut("approve/{coachId}")]
-		public async Task<IActionResult> Approvecoach(int coachId)
+		// ✅ Get Coaches by Specialization
+		[HttpGet("specialization/{specialization}")]
+		public async Task<IActionResult> GetBySpecialization(string specialization)
 		{
-			var result = await _coachService.ApproveCoachAsync(coachId);
-			if (result == "Coach Not Exist") 
-			{
-				return NotFound(result);
-			}
-			if (result == "This subscription is already approved")
-			{
-				return BadRequest(result);
-			}
-			return Ok(result);
+			var coaches = await _coachService.GetCoachesBySpecializationAsync(specialization);
+			return Ok(coaches);
+
 		}
 
-
-		[HttpPut("reject/{CoachId}")]
-		public async Task<IActionResult> RejectSubscription(int CoachId)
-		{
-			var result = await _coachService.RejectCoachAsync(CoachId);
-
-			if (result == "Coach Not Exist")
-			{
-				return NotFound(result);
-			}
-			if(result == "The coach cannot be refused after being approved")
-			{
-				return BadRequest(result);
-			}
-			return Ok(result);
-		}
-
-		[HttpDelete("{coachId}")]
-		public async Task<IActionResult> DeleteCoach(int coachId)
-		{
-			var result = await _coachService.DeleteCoachAsync(coachId);
-			if (!result) return NotFound($"CoachId {coachId} not exist");
-			return Ok("Deleted successfuly");
-		}
 
 	}
 }
