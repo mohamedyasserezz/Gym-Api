@@ -10,6 +10,8 @@ namespace Gym_Api.Data.Models
 
 		public int Quantity { get; set; }
 		public double TotalPrice { get; set; }
+		//OrderItem.TotalPrice = Product.Price * Quantity
+		//Order.Total_Price = Sum of all OrderItems.TotalPrice
 
 		[ForeignKey("Order")]
 		public int Order_ID { get; set; }

@@ -9,6 +9,10 @@ namespace Gym_Api.Survices
 		public Task<List<Category>> GetAllCategoriesAsync();
 		public Task<Category?> GetCategoryByNameAsync(string categoryName);
 		public Task<Category> AddNewCategoryAsync(Addnewcategory addnewcategory);
+		public Task<bool> UpdateCategoryAsync(int id, UpdateCategoryDto dto);
+		public Task<bool> DeleteCategoryAsync(int id);
+
+
 
 
 	}

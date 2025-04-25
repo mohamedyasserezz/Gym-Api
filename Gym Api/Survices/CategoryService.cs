@@ -47,5 +47,20 @@ namespace Gym_Api.Survices
 			return category;
 		}
 
+
+		public async Task<bool> UpdateCategoryAsync(int id, UpdateCategoryDto dto)
+		{
+			return await _categoryRepository.UpdateCategoryAsyncR(id, dto);
+
+		}
+
+
+
+		public async Task<bool> DeleteCategoryAsync(int id)
+		{
+			return await _categoryRepository.DeleteCategoryAsyncR(id);
+		}
+
+
 	}
 }
