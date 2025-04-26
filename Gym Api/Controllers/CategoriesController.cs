@@ -28,6 +28,18 @@ namespace Gym_Api.Controllers
 		}
 
 
+		[HttpGet("GetCategoryById{id}")]
+		public async Task<IActionResult> GetById(int id)
+		{
+			var category = await _categoryService.GetCategoryByIdAsync(id);
+			if (category == null)
+			{
+				return NotFound($"category with id {id} not found");
+			}
+			return Ok(category);
+		}
+
+
 		// ✅ Get By Name
 		[HttpGet("GetCategoryByName{name}")]
 		public async Task<IActionResult> GetCategoryByName(string name)

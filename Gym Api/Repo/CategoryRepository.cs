@@ -9,16 +9,18 @@ namespace Gym_Api.Repo
 	public class CategoryRepository : ICategoryRepository
 	{
 		private readonly AppDbContext _context;
-		private readonly IFileService _fileService;
-
-		public CategoryRepository(AppDbContext context, IFileService fileService)
+		public CategoryRepository(AppDbContext context)
 		{
 			_context = context;
-			_fileService = fileService;
 		}
 		public async Task<List<Category>> GetAllCategoriesAsyncR()
 		{
 			return await _context.Categories.ToListAsync();
+		}
+
+		public async Task<Category?> GetCategoryById(int Id)
+		{
+			return await _context.Categories.FirstOrDefaultAsync(c => c.Category_ID == Id);
 		}
 
 		public async Task<Category?> GetCategoryByNameAsyncR(string categoryName)
@@ -34,30 +36,16 @@ namespace Gym_Api.Repo
 			return category;
 		}
 
-		public async Task<bool> UpdateCategoryAsyncR(int id, UpdateCategoryDto dto)
+		public async Task<bool> UpdateCategoryAsyncR(Category category)
 		{
-			var category = await _context.Categories.FirstOrDefaultAsync(c => c.Category_ID == id);
-			if (category == null)
-				return false;
-
-			category.Category_Name = dto.CategoryName;
-
-			if (dto.CategoryImage is not null)
-			{
-				category.ImageUrl = await _fileService.SaveFileAsync(dto.CategoryImage, "category");
-			}
-
+			_context.Categories.Update(category);
 			await _context.SaveChangesAsync();
 			return true;
 		}
 
-		public async Task<bool> DeleteCategoryAsyncR(int id)
+		public async Task<bool> DeleteCategoryAsyncR(Category category)
 		{
-			var category = await _context.Categories.FirstOrDefaultAsync(c => c.Category_ID == id);
-			if (category == null)
-				return false;
-
-			_context.Categories.Remove(category);
+      		_context.Categories.Remove(category);
 			await _context.SaveChangesAsync();
 			return true;
 		}

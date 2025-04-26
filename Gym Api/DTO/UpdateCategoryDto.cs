@@ -2,7 +2,7 @@
 {
 	public class UpdateCategoryDto
 	{
-		public string CategoryName { get; set; }
+		public string? CategoryName { get; set; }
 		public IFormFile? CategoryImage { get; set; }
 	}
 }

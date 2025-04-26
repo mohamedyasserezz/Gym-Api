@@ -17,7 +17,7 @@ namespace Gym_Api.Controllers
 
 
 		// ✅ Get All Coaches
-		[HttpGet]
+		[HttpGet("GetAllCoaches")]
 		public async Task<IActionResult> GetAll()
 		{
 			var coaches = await _coachService.GetAllCoachesAsync();
@@ -26,7 +26,7 @@ namespace Gym_Api.Controllers
 
 
 		// ✅ Get Coach by Id
-		[HttpGet("{id}")]
+		[HttpGet("GetCoachbyId{id}")]
 		public async Task<IActionResult> GetById(int id)
 		{
 			var coach = await _coachService.GetCoachByIdAsync(id);
@@ -40,12 +40,36 @@ namespace Gym_Api.Controllers
 
 
 		// ✅ Get Coaches by Specialization
-		[HttpGet("specialization/{specialization}")]
+		[HttpGet("GetCoachesByspecialization/{specialization}")]
 		public async Task<IActionResult> GetBySpecialization(string specialization)
 		{
 			var coaches = await _coachService.GetCoachesBySpecializationAsync(specialization);
 			return Ok(coaches);
 
+		}
+
+		[HttpGet("AllApprovedCoaches")]
+		public async Task<IActionResult> GetApprovedCoaches()
+		{
+			var coaches = await _coachService.GetApprovedCoachesAsync();
+			return Ok(coaches);
+		}
+
+		[HttpGet("AllUnapprovedCoaches")]
+		public async Task<IActionResult> GetUnapprovedCoaches()
+		{
+			var coaches = await _coachService.GetUnapprovedCoachesAsync();
+			return Ok(coaches);
+		}
+
+		[HttpPut("AdminApprovesCoach{id}")]
+		public async Task<IActionResult> ApproveCoach(int id)
+		{
+			var result = await _coachService.ApproveCoachAsync(id);
+			if (!result)
+				return NotFound("Coach not found or already approved.");
+
+			return Ok("Coach approved successfully.");
 		}
 
 

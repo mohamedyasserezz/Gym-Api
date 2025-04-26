@@ -1,10 +1,14 @@
-﻿namespace Gym_Api.Contract
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Gym_Api.Contract
 {
 	public class CreateNewExerciseDto
 	{
 		public string Exercise_Name { get; set; }
 		public string Description { get; set; }
+		[Required]
 		public IFormFile Image_url { get; set; }
+		[Required]
 		public IFormFile Image_gif { get; set; }
 		public int Duration { get; set; }
 		public string Target_Muscle { get; set; }
