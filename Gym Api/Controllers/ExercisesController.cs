@@ -43,7 +43,7 @@ namespace Gym_Api.Controllers
 
 
 		// ✅ Get by Name
-		[HttpGet("GetExerciseByName{name}")]
+		[HttpGet("GetExerciseByName")]
 		public async Task<IActionResult> GetByName(string name)
 		{
 			var exercise = await _exerciseSurvice.GetExerciseByNameAsync(name);

@@ -35,23 +35,19 @@ namespace Gym_Api.Repo
 				.ToListAsync();
 		}
 
-		public async Task<List<Coach>> GetApprovedCoachesAsync()
+		public async Task<List<Coach>> GetApprovedCoachesAsyncR()
 		{
 			return await _context.Coaches.Where(c => c.IsApproved).ToListAsync();
 		}
 
-		public async Task<List<Coach>> GetUnapprovedCoachesAsync()
+		public async Task<List<Coach>> GetUnapprovedCoachesAsyncR()
 		{
 			return await _context.Coaches.Where(c => !c.IsApproved).ToListAsync();
 		}
 
-		public async Task<bool> ApproveCoachAsync(int id)
+		public async Task<bool> ApproveCoachAsyncR(Coach coach)
 		{
-			var coach = await _context.Coaches.FirstOrDefaultAsync(c => c.Coach_ID == id);
-			if (coach == null || coach.IsApproved)
-				return false;
-
-			coach.IsApproved = true;
+			_context.Coaches.Update(coach);
 			await _context.SaveChangesAsync();
 			return true;
 		}

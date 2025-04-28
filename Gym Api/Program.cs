@@ -26,6 +26,8 @@ namespace Gym_Api
 			builder.Services.AddScoped<ICoachService, CoachService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ISubscribeRepository, SubscribeRepository>();
+            builder.Services.AddScoped<ISubscribeService, SubscribeService>();
             builder.Services.AddScoped<IFileService, FileService>();
 			builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

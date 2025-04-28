@@ -14,6 +14,7 @@ namespace Gym_Api.Contract
 		public string Target_Muscle { get; set; }
 		public int Difficulty_Level { get; set; }
 		public int Calories_Burned { get; set; }
+		[Required]
 		public int Category_ID { get; set; }
 	}
 }

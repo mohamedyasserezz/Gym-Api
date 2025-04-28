@@ -14,7 +14,6 @@ namespace Gym_Api.Data.Models
 		public bool IsPaid { get; set; } = false;
 		public bool IsApproved { get; set; } = false;
 		public string? PaymentProof { get; set; }
-		public string? message { get; set; }
 
 		[ForeignKey("User")]
 		public int User_ID { get; set; }

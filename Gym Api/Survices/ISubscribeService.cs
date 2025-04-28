@@ -1,0 +1,17 @@
+﻿using Gym_Api.Data.Models;
+using Gym_Api.DTO;
+
+namespace Gym_Api.Survices
+{
+	public interface ISubscribeService
+	{
+		public Task<List<Subscribe>> GetAllSubscriptionsAsyncS();
+        public Task<Subscribe> GetSubscribeByIdS(int id);
+		public Task<string> CreateSubscriptionAsync(CreateSubscriptionDto dto);
+		public Task<List<Subscribe>> GetPendingSubscriptionsAsync();
+		public Task<bool> ApproveSubscriptionAsync(int subscribeId);
+		public Task<bool> RejectSubscriptionAsync(int subscribeId);
+
+
+	}
+}
