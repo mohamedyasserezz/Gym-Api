@@ -51,6 +51,8 @@ namespace Gym_Api.Controllers
 
 
 
+
+
 		// ✅ Get all pending subscriptions
 		[HttpGet("pending")]
 		public async Task<IActionResult> GetPendingSubscriptions()
@@ -58,6 +60,8 @@ namespace Gym_Api.Controllers
 			var pendingSubscriptions = await _subscribeService.GetPendingSubscriptionsAsync();
 			return Ok(pendingSubscriptions);
 		}
+
+
 
 
 		[HttpPut("approve/{id}")]
@@ -71,6 +75,8 @@ namespace Gym_Api.Controllers
 		}
 
 
+
+
 		[HttpPut("reject/{id}")]
 		public async Task<IActionResult> RejectSubscription(int id)
 		{
@@ -81,6 +87,24 @@ namespace Gym_Api.Controllers
 			return Ok("تم رفض الاشتراك وحذفه بنجاح.");
 		}
 
+
+		// جلب الطلاب المشتركين مع كوتش
+		[HttpGet("coach/{coachId}")]
+		public async Task<IActionResult> GetUsersSubscribedToCoach(int coachId)
+		{
+			var result = await _subscribeService.GetUsersSubscribedToCoachAsync(coachId);
+			return Ok(result);
+		}
+
+
+
+		// جلب الاشتراكات الخاصة باليوزر
+		[HttpGet("user/{userId}")]
+		public async Task<IActionResult> GetUserSubscriptions(int userId)
+		{
+			var result = await _subscribeService.GetUserSubscriptionsAsync(userId);
+			return Ok(result);
+		}
 
 
 	}

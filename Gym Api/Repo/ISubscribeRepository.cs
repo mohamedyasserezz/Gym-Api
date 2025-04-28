@@ -1,4 +1,5 @@
 ﻿using Gym_Api.Data.Models;
+using Gym_Api.DTO;
 
 namespace Gym_Api.Repo
 {
@@ -11,6 +12,8 @@ namespace Gym_Api.Repo
 		public Task<List<Subscribe>> GetPendingSubscriptionsAsync();
 		public Task<bool> ApproveSubscriptionAsync(Subscribe subscribe);
 		public Task<bool> RejectSubscriptionAsync(Subscribe subscribe);
+		public Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(int coachId);
+		public Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(int userId);
 
 
 	}

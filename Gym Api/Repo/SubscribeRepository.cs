@@ -1,6 +1,7 @@
 ﻿using Gym_Api.Data.Models;
 using Gym_Api.Data;
 using Microsoft.EntityFrameworkCore;
+using Gym_Api.DTO;
 
 namespace Gym_Api.Repo
 {
@@ -64,7 +65,35 @@ namespace Gym_Api.Repo
 			return true;
 		}
 
+		public async Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(int coachId)
+		{
+			return await _context.Subscriptions
+	      .Where(s => s.Coach_ID == coachId && s.IsPaid && s.IsApproved && s.EndDate > DateTime.UtcNow)
+	         .Select(s => new UserSubscriptionDto
+	        {
+		   UserId = s.User.User_ID,
+		   UserName = s.User.Name,
+		   UserEmail = s.User.Email,
+		   Image = s.User.ProfileImageUrl
 
+	              })
+			 
+	            .ToListAsync();
+		}
+
+		public async Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(int userId)
+		{
+			return await _context.Subscriptions
+				.Where(s => s.User_ID == userId && s.IsPaid && s.IsApproved && s.EndDate > DateTime.UtcNow)
+				.Select(s => new CoachSubscriptionDto
+				{
+					CoachId = s.Coach.Coach_ID,
+					CoachName = s.Coach.Name,
+					Specialization = s.Coach.Specialization,
+					Image = s.Coach.ImageUrl
+				})
+				.ToListAsync();
+		}
 
 
 

@@ -11,6 +11,8 @@ namespace Gym_Api.Survices
 		public Task<List<Subscribe>> GetPendingSubscriptionsAsync();
 		public Task<bool> ApproveSubscriptionAsync(int subscribeId);
 		public Task<bool> RejectSubscriptionAsync(int subscribeId);
+		public Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(int coachId);
+		public Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(int userId);
 
 
 	}

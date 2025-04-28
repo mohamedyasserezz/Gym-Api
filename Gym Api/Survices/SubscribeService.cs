@@ -98,7 +98,17 @@ namespace Gym_Api.Survices
 			await _repository.RejectSubscriptionAsync(subscribe);
 			 return true;
 		}
-		
+
+
+		public async Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(int coachId)
+		{
+			return await _repository.GetUsersSubscribedToCoachAsync(coachId);
+		}
+
+		public async Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(int userId)
+		{
+			return await _repository.GetUserSubscriptionsAsync(userId);
+		}
 
 	}
 }
