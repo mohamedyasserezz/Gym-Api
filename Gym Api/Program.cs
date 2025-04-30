@@ -3,8 +3,12 @@ using Gym_Api.Data;
 using Gym_Api.Repo;
 using Gym_Api.Survices;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
+using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.Extensions.Configuration;
+using Gym_Api.Common.Settings;
+using Gym_Api.Survices.Authentication;
 
 namespace Gym_Api
 {
@@ -15,7 +19,7 @@ namespace Gym_Api
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
-			builder.Services.AddDbContext<AppDbContext>(op =>
+			builder.Services.AddDbContext<ApplicationDbContext>(op =>
 			op.UseSqlServer(builder.Configuration.GetConnectionString("myCon")));
 
 			builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -28,7 +32,11 @@ namespace Gym_Api
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<IAssignmentService, AssignmentService>();
             builder.Services.AddScoped<IFileService, FileService>();
-			builder.Services.AddControllers();
+            builder.Services.AddScoped<IAuthServices, AuthServices>();
+
+            
+
+            builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

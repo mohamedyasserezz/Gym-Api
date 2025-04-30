@@ -1,0 +1,105 @@
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Gym_Api.Common.Settings;
+using Gym_Api.Mapping;
+using Gym_Api.Survices;
+using Gym_Api.Survices.Authentication;
+using Hangfire;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
+using System.Text;
+
+namespace Gym_Api
+{
+    public static class DependencyInjection
+    {
+        public static IServiceCollection AddCommonServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            #region FluentValidation
+            services
+                   .AddFluentValidationAutoValidation()
+               .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            services.Configure<MailSettings>(configuration.GetSection(nameof(MailSettings)));
+            #endregion
+
+            #region JWT
+            services.AddSingleton<IJwtProvider, JwtProvider>();
+
+            services.AddOptions<JwtOptions>()
+            .BindConfiguration(JwtOptions.SectionName)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
+
+
+            var jwtSettings = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+               .AddJwtBearer(options =>
+               {
+                   options.SaveToken = true;
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuerSigningKey = true,
+                       ValidateIssuer = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings?.Key!)),
+                       ValidIssuer = jwtSettings?.Issuer,
+                       ValidAudience = jwtSettings?.Audience
+                   };
+               });
+            #endregion
+
+            #region CORS
+            // var allowedOrgins = configuration.GetSection("AllowedOrgins").Get<string[]>();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()    // Allow requests from any origin
+                        .AllowAnyHeader()    // Allow any headers
+                        .AllowAnyMethod();   // Allow any HTTP methods (GET, POST, etc.)
+                });
+            });
+
+            #endregion
+
+            services.AddScoped<IJwtProvider, JwtProvider>();
+            services.AddScoped<IAuthServices, AuthServices>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IEmailSender, EmailService>();
+
+            #region Hangfire
+            services.AddHangfire(Configuration => Configuration
+             .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+             .UseSimpleAssemblyNameTypeSerializer()
+             .UseRecommendedSerializerSettings()
+             .UseSqlServerStorage(configuration.GetConnectionString("HangfireConnection")));
+
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
+            #endregion
+
+            #region auto mapper
+
+            services.AddHttpContextAccessor();
+
+            services.AddTransient<MappingProfile>();
+
+            services.AddAutoMapper(typeof(AssemblyInformation).Assembly);
+
+
+            #endregion
+            return services;
+        }
+    }
+}
