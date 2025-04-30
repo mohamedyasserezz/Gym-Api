@@ -1,11 +1,14 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Gym_Api.Common.Settings;
+using Gym_Api.Data.Models;
+using Gym_Api.Data;
 using Gym_Api.Mapping;
 using Gym_Api.Survices;
 using Gym_Api.Survices.Authentication;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
@@ -97,6 +100,25 @@ namespace Gym_Api
 
             services.AddAutoMapper(typeof(AssemblyInformation).Assembly);
 
+
+            #endregion
+
+            #region Identity
+            services.AddControllers();
+
+            services
+              .AddIdentity<ApplicationUser, IdentityRole>()
+              .AddEntityFrameworkStores<ApplicationDbContext>()
+              .AddDefaultTokenProviders();
+
+            services
+                .Configure<IdentityOptions>(options =>
+                {
+                    options.Password.RequiredLength = 6;
+                    options.SignIn.RequireConfirmedEmail = true;
+                    options.User.RequireUniqueEmail = true;
+
+                });
 
             #endregion
             return services;

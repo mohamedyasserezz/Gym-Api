@@ -34,7 +34,6 @@ namespace Gym_Api
             builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddScoped<IAuthServices, AuthServices>();
 
-            
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
