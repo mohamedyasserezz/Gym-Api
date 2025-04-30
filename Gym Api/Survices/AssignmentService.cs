@@ -7,8 +7,8 @@ namespace Gym_Api.Survices
 {
 	public class AssignmentService : IAssignmentService
 	{
-		private readonly AppDbContext _context;
-		public AssignmentService(AppDbContext context) 
+		private readonly ApplicationDbContext _context;
+		public AssignmentService(ApplicationDbContext context) 
 		{
 			_context = context;
 		}

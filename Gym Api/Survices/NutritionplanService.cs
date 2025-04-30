@@ -7,8 +7,8 @@ namespace Gym_Api.Survices
 {
 	public class NutritionplanService : INutritionplanService
 	{
-		private readonly AppDbContext _context;
-		public NutritionplanService(AppDbContext context) 
+		private readonly ApplicationDbContext _context;
+		public NutritionplanService(ApplicationDbContext context) 
 		{
 			_context = context;
 		}
