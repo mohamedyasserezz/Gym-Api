@@ -22,24 +22,24 @@ namespace Gym_Api
 			builder.Services.AddDbContext<ApplicationDbContext>(op =>
 			op.UseSqlServer(builder.Configuration.GetConnectionString("myCon")));
 
-			builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-			builder.Services.AddScoped<ICategoryService, CategoryService>();
-			builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
-			builder.Services.AddScoped<IExerciseSurvice, ExerciseSurvice>();
-			builder.Services.AddScoped<ICoachRepository, CoachRepository>();
-			builder.Services.AddScoped<ICoachService, CoachService>();
-			builder.Services.AddScoped<INutritionplanService, NutritionplanService>();
-            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-            builder.Services.AddScoped<IAssignmentService, AssignmentService>();
-            builder.Services.AddScoped<IFileService, FileService>();
-            builder.Services.AddScoped<IAuthServices, AuthServices>();
+			
+			
+			
+			
+			
+			
+			
+            
+            
+            
+            
 
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddCommonServices(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
+using Gym_Api.Repo;
 
 namespace Gym_Api
 {
@@ -121,6 +122,16 @@ namespace Gym_Api
                 });
 
             #endregion
+
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IExerciseRepository, ExerciseRepository>();
+            services.AddScoped<IExerciseSurvice, ExerciseSurvice>();
+            services.AddScoped<ICoachRepository, CoachRepository>();
+            services.AddScoped<ICoachService, CoachService>();
+            services.AddScoped<INutritionplanService, NutritionplanService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
+            services.AddScoped<IAssignmentService, AssignmentService>();
             return services;
         }
     }
