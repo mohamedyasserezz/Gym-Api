@@ -8,10 +8,10 @@ namespace Gym_Api.Repo
 {
 	public class CategoryRepository : ICategoryRepository
 	{
-		private readonly AppDbContext _context;
+		private readonly ApplicationDbContext _context;
 		private readonly IFileService _fileService;
 
-		public CategoryRepository(AppDbContext context, IFileService fileService)
+		public CategoryRepository(ApplicationDbContext context, IFileService fileService)
 		{
 			_context = context;
 			_fileService = fileService;

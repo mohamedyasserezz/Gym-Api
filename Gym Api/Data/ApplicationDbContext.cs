@@ -3,14 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gym_Api.Data
 {
-	public class AppDbContext : DbContext
+	public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 	{
-		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-		{
-
-		}
-
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Exercise>()
 				.HasOne(e => e.Category)
@@ -18,20 +13,7 @@ namespace Gym_Api.Data
 				.HasForeignKey(e => e.Category_ID)
 				.OnDelete(DeleteBehavior.Cascade);
 
-			modelBuilder.Entity<Assignment>()
-			.HasOne(a => a.User)
-			.WithMany(u => u.Assignments)
-			.HasForeignKey(a => a.User_ID);
-
-			modelBuilder.Entity<Assignment>()
-				.HasOne(a => a.Coach)
-				.WithMany(c => c.Assignments)
-				.HasForeignKey(a => a.Coach_ID);
-
-			modelBuilder.Entity<Assignment>()
-				.HasOne(a => a.Exercise)
-				.WithMany(e => e.Assignments)
-				.HasForeignKey(a => a.Exercise_ID);
+			
 
 			modelBuilder.Entity<Subscribe>()
 			.HasOne(s => s.User)

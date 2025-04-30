@@ -1,10 +1,8 @@
 
 using Gym_Api.Data;
-using Gym_Api.Repo;
-using Gym_Api.Survices;
+using Hangfire;
+using HangfireBasicAuthenticationFilter;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
 
 namespace Gym_Api
 {
@@ -14,25 +12,15 @@ namespace Gym_Api
         {
 			var builder = WebApplication.CreateBuilder(args);
 
-			// Add services to the container.
-			builder.Services.AddDbContext<AppDbContext>(op =>
-			op.UseSqlServer(builder.Configuration.GetConnectionString("myCon")));
+            // Add services to the container.
+            builder.Services.AddDbContext<ApplicationDbContext>(op =>
+            op.UseSqlServer(builder.Configuration.GetConnectionString("myCon")));
 
-			builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-			builder.Services.AddScoped<ICategoryService, CategoryService>();
-			builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
-			builder.Services.AddScoped<IExerciseSurvice, ExerciseSurvice>();
-			builder.Services.AddScoped<ICoachRepository, CoachRepository>();
-			builder.Services.AddScoped<ICoachService, CoachService>();
-			builder.Services.AddScoped<INutritionplanService, NutritionplanService>();
-            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-            builder.Services.AddScoped<IAssignmentService, AssignmentService>();
-            builder.Services.AddScoped<IFileService, FileService>();
-			builder.Services.AddControllers();
+            builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddCommonServices(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -43,7 +31,18 @@ namespace Gym_Api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors();
+            app.UseHangfireDashboard("/jobs", new DashboardOptions
+            {
+                Authorization = [
+                    new HangfireCustomBasicAuthenticationFilter{
+                            User = app.Configuration.GetValue<string>("HangfireSettings:UserName"),
+                            Pass = app.Configuration.GetValue<string>("HangfireSettings:Password")
+                    }],
+                DashboardTitle = "CANC App Jobs",
+            }
+                );
+            app.UseStaticFiles();
             app.UseAuthorization();
 
 

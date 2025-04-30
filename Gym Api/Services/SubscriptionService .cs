@@ -7,8 +7,8 @@ namespace Gym_Api.Survices
 {
 	public class SubscriptionService  : ISubscriptionService
 	{
-		private readonly AppDbContext _context;
-		public SubscriptionService(AppDbContext context)
+		private readonly ApplicationDbContext _context;
+		public SubscriptionService(ApplicationDbContext context)
 		{
 			_context = context;
 		}

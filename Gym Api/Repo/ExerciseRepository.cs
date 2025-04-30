@@ -6,8 +6,8 @@ namespace Gym_Api.Repo
 {
 	public class ExerciseRepository : IExerciseRepository
 	{
-		private readonly AppDbContext _context;
-		public ExerciseRepository(AppDbContext context)
+		private readonly ApplicationDbContext _context;
+		public ExerciseRepository(ApplicationDbContext context)
 		{
 			_context = context;
 		}
