@@ -1,0 +1,13 @@
+﻿using Gym_Api.Data.Models;
+using Gym_Api.DTO;
+
+namespace Gym_Api.Survices
+{
+	public interface IAssignmentService
+	{
+		public Task<string> AddAssignmentAsync(CreateAssignmentDto dto);
+		Task<List<Assignment>> GetUserAssignmentsByDayAsync(int userId, string day);
+
+
+	}
+}
