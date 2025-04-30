@@ -6,9 +6,9 @@ namespace Gym_Api.Repo
 {
 	public class CoachRepository : ICoachRepository
 	{
-		private readonly AppDbContext _context;
+		private readonly ApplicationDbContext _context;
 
-		public CoachRepository(AppDbContext context)
+		public CoachRepository(ApplicationDbContext context)
 		{
 			_context = context;
 		}
