@@ -7,6 +7,7 @@ namespace Gym_Api.Survices
 	public interface ICategoryService
 	{
 		public Task<List<Category>> GetAllCategoriesAsync();
+		public Task<Category?> GetCategoryByIdAsync(int id);
 		public Task<Category?> GetCategoryByNameAsync(string categoryName);
 		public Task<Category> AddNewCategoryAsync(Addnewcategory addnewcategory);
 		public Task<bool> UpdateCategoryAsync(int id, UpdateCategoryDto dto);

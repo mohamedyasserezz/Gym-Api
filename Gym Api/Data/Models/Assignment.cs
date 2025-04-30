@@ -7,9 +7,9 @@ namespace Gym_Api.Data.Models
 	{
 		[Key]
 		public int Assignment_ID { get; set; }
-		public DateTime Assignment_Date { get; set; }
-		public double CompleteRate { get; set; }
+		public string Day { get; set; } 
 		public bool IsCompleted { get; set; } = false;
+		public string Notes { get; set; }
 
 		[ForeignKey("User")]
 		public int User_ID { get; set; }

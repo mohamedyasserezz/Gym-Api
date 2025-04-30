@@ -30,14 +30,12 @@ namespace Gym_Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Assignment_ID"));
 
-                    b.Property<DateTime>("Assignment_Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Coach_ID")
                         .HasColumnType("int");
 
-                    b.Property<double>("CompleteRate")
-                        .HasColumnType("float");
+                    b.Property<string>("Day")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Exercise_ID")
                         .HasColumnType("int");
@@ -92,6 +90,10 @@ namespace Gym_Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -99,12 +101,16 @@ namespace Gym_Api.Migrations
                     b.Property<int>("Experience_Years")
                         .HasColumnType("int");
 
-                    b.Property<string>("Fname")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -114,14 +120,7 @@ namespace Gym_Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Ratings")
-                        .HasColumnType("float");
-
                     b.Property<string>("Specialization")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("lname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -194,14 +193,46 @@ namespace Gym_Api.Migrations
                     b.Property<int>("Coach_ID")
                         .HasColumnType("int");
 
+                    b.Property<string>("Day")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Fats_Needs")
                         .HasColumnType("int");
+
+                    b.Property<string>("FifthMeal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstMeal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FourthMeal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Protein_Needs")
                         .HasColumnType("int");
 
+                    b.Property<string>("SecondMeal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Snacks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThirdMeal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("User_ID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Vitamins")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -221,11 +252,17 @@ namespace Gym_Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Order_id"));
 
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Order_Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Order_Status")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentProof")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Total_Price")
@@ -330,6 +367,13 @@ namespace Gym_Api.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubscriptionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("User_ID")
                         .HasColumnType("int");
 
@@ -350,6 +394,9 @@ namespace Gym_Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_ID"));
 
+                    b.Property<string>("Allergies")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("BDate")
                         .HasColumnType("datetime2");
 
@@ -361,10 +408,6 @@ namespace Gym_Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Fname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -372,12 +415,18 @@ namespace Gym_Api.Migrations
                     b.Property<double>("Height")
                         .HasColumnType("float");
 
-                    b.Property<string>("Lname")
+                    b.Property<string>("MedicalConditions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Weight")

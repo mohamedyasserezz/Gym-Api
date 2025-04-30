@@ -1,5 +1,8 @@
 ﻿using Gym_Api.Data;
 using Gym_Api.Data.Models;
+using Gym_Api.DTO;
+using Gym_Api.Migrations;
+using Gym_Api.Survices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gym_Api.Repo
@@ -18,6 +21,10 @@ namespace Gym_Api.Repo
 			return await _context.Exercises.ToListAsync();
 		}
 
+		public async Task<Exercise?> GetExerciseById(int id)
+		{
+			return await _context.Exercises.FirstOrDefaultAsync(e => e.Exercise_ID == id);
+		}
 
 
 		public async Task<Exercise?> GetExerciseByNameAsyncR(string name)
@@ -34,7 +41,23 @@ namespace Gym_Api.Repo
 			await _context.SaveChangesAsync();
 			return exercise;
 		}
-       
+
+		public async Task<bool> UpdateExerciseAsyncR(Exercise exercise)
+		{
+			_context.Exercises.Update(exercise);
+			await _context.SaveChangesAsync();
+			return true;
+		}
+
+		public async Task<bool> DeleteExerciseAsyncR(Exercise exercise)
+		{
+			_context.Exercises.Remove(exercise);
+			await _context.SaveChangesAsync();
+			return true;
+		}
+
+
+
 
 	}
 }

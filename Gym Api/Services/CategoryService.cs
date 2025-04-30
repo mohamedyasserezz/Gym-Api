@@ -26,6 +26,10 @@ namespace Gym_Api.Survices
 			return await _categoryRepository.GetAllCategoriesAsyncR();
 		}
 
+		public async Task<Category?> GetCategoryByIdAsync(int id)
+		{
+			return await _categoryRepository.GetCategoryById(id);
+		}
 
 		public async Task<Category?> GetCategoryByNameAsync(string categoryName)
 		{
@@ -50,7 +54,20 @@ namespace Gym_Api.Survices
 
 		public async Task<bool> UpdateCategoryAsync(int id, UpdateCategoryDto dto)
 		{
-			return await _categoryRepository.UpdateCategoryAsyncR(id, dto);
+			var category = await _categoryRepository.GetCategoryById(id);
+			if(category == null)
+			{
+				return false;
+			}
+			category.Category_Name = dto.CategoryName;
+
+			if (dto.CategoryImage is not null)
+			{
+				category.ImageUrl = await _fileService.SaveFileAsync(dto.CategoryImage, "category");
+			}
+
+			await _categoryRepository.UpdateCategoryAsyncR(category);
+			return true;
 
 		}
 
@@ -58,7 +75,13 @@ namespace Gym_Api.Survices
 
 		public async Task<bool> DeleteCategoryAsync(int id)
 		{
-			return await _categoryRepository.DeleteCategoryAsyncR(id);
+			var category = await _categoryRepository.GetCategoryById(id);
+			if( category == null)
+			{
+				return false;
+			}
+			await _categoryRepository.DeleteCategoryAsyncR(category);
+			return true;
 		}
 
 

@@ -7,5 +7,8 @@ namespace Gym_Api.Repo
 		public Task<List<Coach>> GetAllAsyncR();
 		public Task<Coach?> GetByIdAsyncR(int id);
 		public Task<List<Coach>?> GetBySpecializationAsyncR(string specialization);
+		public Task<List<Coach>> GetApprovedCoachesAsyncR();
+		public Task<List<Coach>> GetUnapprovedCoachesAsyncR();
+		public Task<bool> ApproveCoachAsyncR(Coach coach);
 	}
 }

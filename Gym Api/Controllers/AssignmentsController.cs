@@ -1,4 +1,4 @@
-﻿using Gym_Api.Contract;
+﻿using Gym_Api.DTO;
 using Gym_Api.Survices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,76 +9,34 @@ namespace Gym_Api.Controllers
 	[ApiController]
 	public class AssignmentsController : ControllerBase
 	{
-		private readonly IAssignmentService _assignmentservice;
-		public AssignmentsController(IAssignmentService assignmentservice)
+		private readonly IAssignmentService _assignmentService;
+
+		public AssignmentsController(IAssignmentService assignmentService)
 		{
-			_assignmentservice = assignmentservice;
+			_assignmentService = assignmentService;
 		}
 
 
 
-		[HttpPost]
-		public async Task<IActionResult> AddAssignment(CreateAssignmentDto createAssignmentDto)
+
+		[HttpPost("AddNewAssignmentForUser")]
+		public async Task<IActionResult> AddAssignment([FromForm] CreateAssignmentDto dto)
 		{
-			var newassignment = await _assignmentservice.AddAssignmentAsync(createAssignmentDto);
-			return Ok(newassignment);
-		}
-
-
-
-		[HttpGet("user/{userId}")]
-		public async Task<IActionResult> GetUserAssignments(int userId)
-		{
-			var assignments = await _assignmentservice.GetUserAssignmentsAsync(userId);
-			return Ok(assignments);
-		}
-
-
-
-		[HttpGet("coach/{coachId}")]
-		public async Task<IActionResult> GetCoachAssignments(int coachId)
-		{
-			var assignments = await _assignmentservice.GetCoachAssignmentsAsync(coachId);
-			return Ok(assignments);
-		}
-
-
-
-		[HttpPut("complete")]
-		public async Task<IActionResult> CompleteAssignment([FromQuery] int userId, [FromQuery] int assignmentId)
-		{
-			var result = await _assignmentservice.CompleteAssignmentAsync(userId, assignmentId);
-			
-			if (result == "Assignment not found.")
-			{
-				return NotFound(result);
-			}
-			if (result == "Assignment is already marked as completed.")
-			{
-				return BadRequest(result);
-			}
-
-			return Ok(result);
-		}
-
-
-		[HttpPut("update")]
-		public async Task<IActionResult> UpdateAssignment(int assignmentId, int coachId, [FromBody] UpdateAssignmentDto updateDto)
-		{
-			var result = await _assignmentservice.UpdateAssignmentAsync(assignmentId, coachId, updateDto);
-			if (result.Contains("not found") || result.Contains("don't have permission"))
-				return NotFound(result);
+			var result = await _assignmentService.AddAssignmentAsync(dto);
 			return Ok(result);
 		}
 
 
 
-		[HttpDelete("Delete")]
-		public async Task<IActionResult> DeleteAssignment(int assignmentId, int CoachId)
+		[HttpGet("user/{userId}/day/{day}")]
+		public async Task<IActionResult> GetUserAssignmentsByDay(int userId, string day)
 		{
-			var result = await _assignmentservice.DeleteAssignmentAsync(assignmentId,CoachId);
-			if (!result) return NotFound("Assignment not found.");
-			return Ok("Assignment deleted successfully.");
+			var assignments = await _assignmentService.GetUserAssignmentsByDayAsync(userId, day);
+
+			if (assignments == null || !assignments.Any())
+				return NotFound($"{day} لا توجد مهام لك في يوم");
+
+			return Ok(assignments);
 		}
 
 
