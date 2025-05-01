@@ -5,7 +5,8 @@ using System.Reflection;
 
 namespace Gym_Api.Data
 {
-	public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
+	public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : 
+		IdentityDbContext<ApplicationUser, ApplicationRole, string>(options)
 	{
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
