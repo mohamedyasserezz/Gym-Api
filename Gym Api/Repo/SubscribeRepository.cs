@@ -7,8 +7,8 @@ namespace Gym_Api.Repo
 {
 	public class SubscribeRepository : ISubscribeRepository
 	{
-		private readonly AppDbContext _context;
-		public SubscribeRepository(AppDbContext context)
+		private readonly ApplicationDbContext _context;
+		public SubscribeRepository(ApplicationDbContext context)
 		{
 			_context = context;
 		}

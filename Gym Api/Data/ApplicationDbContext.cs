@@ -1,18 +1,15 @@
 ﻿using Gym_Api.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Gym_Api.Data
 {
-	public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+	public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
 	{
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Exercise>()
-				.HasOne(e => e.Category)
-				.WithMany(c => c.Exercises)
-				.HasForeignKey(e => e.Category_ID)
-				.OnDelete(DeleteBehavior.Cascade);
-
+			
 			
 
 			modelBuilder.Entity<Subscribe>()
@@ -52,6 +49,12 @@ namespace Gym_Api.Data
 			.HasOne(oi => oi.Product)
 			.WithMany(p => p.OrderItems)
 			.HasForeignKey(oi => oi.Product_ID);
+
+
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
 		}
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Exercise> Exercises { get; set; }

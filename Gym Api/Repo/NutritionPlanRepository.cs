@@ -6,8 +6,8 @@ namespace Gym_Api.Repo
 {
 	public class NutritionPlanRepository : INutritionPlanRepository
 	{
-		private readonly AppDbContext _context;
-		public NutritionPlanRepository(AppDbContext context)
+		private readonly ApplicationDbContext _context;
+		public NutritionPlanRepository(ApplicationDbContext context)
 		{
 			_context = context;
 		}

@@ -20,7 +20,7 @@ namespace Gym_Api.Controllers
 
 
 		[HttpPost("AddNewAssignmentForUser")]
-		public async Task<IActionResult> AddAssignment([FromForm] CreateAssignmentDto dto)
+		public async Task<IActionResult> AddAssignment([FromBody] CreateAssignmentDto dto)
 		{
 			var result = await _assignmentService.AddAssignmentAsync(dto);
 			return Ok(result);
