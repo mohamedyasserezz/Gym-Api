@@ -6,8 +6,8 @@ namespace Gym_Api.Repo
 {
 	public class ProductRepository : IProductRepository
 	{
-		private readonly AppDbContext _context;
-		public ProductRepository(AppDbContext context)
+		private readonly ApplicationDbContext _context;
+		public ProductRepository(ApplicationDbContext context)
 		{
 			_context = context;
 		}

@@ -1,7 +1,5 @@
 ﻿using Gym_Api.DTO;
-using Gym_Api.Survices;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Gym_Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gym_Api.Controllers
@@ -18,7 +16,7 @@ namespace Gym_Api.Controllers
 		}
 
 		[HttpPost("AddNutritionPlan")]
-		public async Task<IActionResult> AddNutritionPlan([FromForm] CreateNutritionPlanDto dto)
+		public async Task<IActionResult> AddNutritionPlan([FromBody] CreateNutritionPlanDto dto)
 		{
 			var plan = await _service.AddNutritionPlanAsync(dto);
 			return Ok(plan);

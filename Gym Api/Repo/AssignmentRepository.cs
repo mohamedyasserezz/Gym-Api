@@ -6,9 +6,9 @@ namespace Gym_Api.Repo
 {
 	public class AssignmentRepository : IAssignmentRepository
 	{
-		private readonly AppDbContext _context;
-
-		public AssignmentRepository(AppDbContext context)
+		private readonly ApplicationDbContext _context;
+		
+		public AssignmentRepository(ApplicationDbContext context)
 		{
 			_context = context;
 		}

@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
 using Gym_Api.Repo;
+using Gym_Api.Services;
 
 namespace Gym_Api
 {
@@ -81,6 +82,7 @@ namespace Gym_Api
             services.AddScoped<IAuthServices, AuthServices>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IEmailSender, EmailService>();
+            services.AddScoped<INutritionPlanRepository, NutritionPlanRepository>();
 
             #region Hangfire
             services.AddHangfire(Configuration => Configuration
@@ -129,8 +131,10 @@ namespace Gym_Api
             services.AddScoped<IExerciseSurvice, ExerciseSurvice>();
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<ICoachService, CoachService>();
-            services.AddScoped<INutritionplanService, NutritionplanService>();
-            services.AddScoped<ISubscriptionService, SubscriptionService>();
+            services.AddScoped<INutritionPlanService, NutritionPlanService>();
+            services.AddScoped<ISubscribeRepository, SubscribeRepository>();
+            services.AddScoped<ISubscribeService, SubscribeService>();
+            services.AddScoped<IAssignmentRepository, AssignmentRepository>();
             services.AddScoped<IAssignmentService, AssignmentService>();
             return services;
         }
