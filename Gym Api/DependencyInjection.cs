@@ -110,7 +110,7 @@ namespace Gym_Api
             services.AddControllers();
 
             services
-              .AddIdentity<ApplicationUser, IdentityRole>()
+              .AddIdentity<ApplicationUser, ApplicationRole>()
               .AddEntityFrameworkStores<ApplicationDbContext>()
               .AddDefaultTokenProviders();
 
