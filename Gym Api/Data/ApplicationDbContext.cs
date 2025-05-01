@@ -29,11 +29,7 @@ namespace Gym_Api.Data
 			.HasForeignKey(np => np.Coach_ID)
 			.OnDelete(DeleteBehavior.Cascade);
 
-			modelBuilder.Entity<User>()
-			.HasOne(c => c.NutritionPlan)
-			.WithOne()
-			.HasForeignKey<NutritionPlan>(np => np.User_ID)
-			.OnDelete(DeleteBehavior.Cascade);
+			
 
 			modelBuilder.Entity<Order>()
 			.HasOne(o => o.User)
@@ -67,8 +63,5 @@ namespace Gym_Api.Data
 		public DbSet<Order> Orders { get; set; }
 		public DbSet<Product> Products { get; set; }
 		public DbSet<OrderItem> OrderItems { get; set; }
-
-
-
 	}
 }

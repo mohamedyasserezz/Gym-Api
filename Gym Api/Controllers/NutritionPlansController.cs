@@ -25,7 +25,7 @@ namespace Gym_Api.Controllers
 
 
 		[HttpGet("user/{userId}/day/{day}")]
-		public async Task<IActionResult> GetNutritionPlanByDay(int userId, string day)
+		public async Task<IActionResult> GetNutritionPlanByDay(string userId, string day)
 		{
 			var plan = await _service.GetUserNutritionPlanByDayAsync(userId, day);
 			if (plan == null)

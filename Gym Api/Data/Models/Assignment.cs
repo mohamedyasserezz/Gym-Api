@@ -12,11 +12,11 @@ namespace Gym_Api.Data.Models
 		public string? Notes { get; set; }
 
 		[ForeignKey("User")]
-		public int User_ID { get; set; }
+		public string User_ID { get; set; }
 		public User User { get; set; }
 
 		[ForeignKey("Coach")]
-		public int Coach_ID { get; set; }
+		public string Coach_ID { get; set; }
 		public Coach Coach { get; set; }
 
 		[ForeignKey("Exercise")]

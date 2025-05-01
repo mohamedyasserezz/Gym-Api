@@ -22,7 +22,7 @@ namespace Gym_Api.Survices
 
 
 
-		public async Task<Coach?> GetCoachByIdAsync(int id)
+		public async Task<Coach?> GetCoachByIdAsync(string id)
 		{
 			return await _repository.GetByIdAsyncR(id);
 		}
@@ -46,7 +46,7 @@ namespace Gym_Api.Survices
 		}
 
 
-		public async Task<bool> ApproveCoachAsync(int id)
+		public async Task<bool> ApproveCoachAsync(string id)
 		{
 			var coach = await _repository.GetByIdAsyncR(id);
 			if(coach == null || coach.IsApproved)

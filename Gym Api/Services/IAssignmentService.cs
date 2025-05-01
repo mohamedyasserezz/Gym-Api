@@ -6,7 +6,7 @@ namespace Gym_Api.Survices
 	public interface IAssignmentService
 	{
 		public Task<string> AddAssignmentAsync(CreateAssignmentDto dto);
-		public Task<List<Assignment>> GetUserAssignmentsByDayAsync(int userId, string day);
+		public Task<List<Assignment>> GetUserAssignmentsByDayAsync(string userId, string day);
 
 
 	}

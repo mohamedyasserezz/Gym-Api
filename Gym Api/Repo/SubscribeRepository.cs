@@ -24,7 +24,7 @@ namespace Gym_Api.Repo
 		}
 
 
-		public async Task<bool> HasActiveSubscriptionAsync(int userId, int coachId)
+		public async Task<bool> HasActiveSubscriptionAsync(string userId, string coachId)
 		{
 			return await _context.Subscriptions.AnyAsync(s =>
 				s.User_ID == userId &&
@@ -65,32 +65,32 @@ namespace Gym_Api.Repo
 			return true;
 		}
 
-		public async Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(int coachId)
+		public async Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(string coachId)
 		{
 			return await _context.Subscriptions
 	      .Where(s => s.Coach_ID == coachId && s.IsPaid && s.IsApproved && s.EndDate > DateTime.UtcNow)
 	         .Select(s => new UserSubscriptionDto
 	        {
-		   UserId = s.User.User_ID,
-		   UserName = s.User.Name,
-		   UserEmail = s.User.Email,
-		   Image = s.User.ProfileImageUrl
+		   UserId = s.User.UserId,
+		   UserName = s.User.ApplicationUser.FullName,
+		   UserEmail = s.User.ApplicationUser.Email!,
+		   Image = s.User.ApplicationUser.Image!
 
 	              })
 			 
 	            .ToListAsync();
 		}
 
-		public async Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(int userId)
+		public async Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(string userId)
 		{
 			return await _context.Subscriptions
 				.Where(s => s.User_ID == userId && s.IsPaid && s.IsApproved && s.EndDate > DateTime.UtcNow)
 				.Select(s => new CoachSubscriptionDto
 				{
-					CoachId = s.Coach.Coach_ID,
-					CoachName = s.Coach.Name,
+					CoachId = s.Coach.UserId,
+					CoachName = s.Coach.ApplicationUser.FullName,
 					Specialization = s.Coach.Specialization,
-					Image = s.Coach.ImageUrl
+					Image = s.Coach.ApplicationUser.Image!
 				})
 				.ToListAsync();
 		}

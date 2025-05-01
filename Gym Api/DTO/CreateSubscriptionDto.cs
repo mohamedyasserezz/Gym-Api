@@ -5,9 +5,9 @@ namespace Gym_Api.DTO
 	public class CreateSubscriptionDto
 	{
 		[Required]
-		public int User_ID { get; set; }
+		public string User_ID { get; set; }
 		[Required]
-		public int Coach_ID { get; set; }
+		public string Coach_ID { get; set; }
 		[Required]
 		public string SubscriptionType { get; set; } // "شهر" - "3 شهور" - "6 شهور"
 		[Required]

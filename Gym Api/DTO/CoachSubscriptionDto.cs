@@ -2,7 +2,7 @@
 {
 	public class CoachSubscriptionDto
 	{
-		public int CoachId { get; set; }
+		public string CoachId { get; set; }
 		public string CoachName { get; set; }
 		public string Specialization { get; set; }
 		public string Image {  get; set; }

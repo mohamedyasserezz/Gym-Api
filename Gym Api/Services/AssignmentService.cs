@@ -37,7 +37,7 @@ namespace Gym_Api.Survices
 		}
 
 
-		public async Task<List<Assignment>> GetUserAssignmentsByDayAsync(int userId, string day)
+		public async Task<List<Assignment>> GetUserAssignmentsByDayAsync(string userId, string day)
 		{
 			return await _repository.GetUserAssignmentsByDayAsync(userId, day);
 		}

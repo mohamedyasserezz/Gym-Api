@@ -3,6 +3,7 @@ using Gym_Api.Data;
 using Hangfire;
 using HangfireBasicAuthenticationFilter;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Gym_Api
 {
@@ -14,7 +15,9 @@ namespace Gym_Api
 
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(op =>
-            op.UseSqlServer(builder.Configuration.GetConnectionString("myCon")));
+            op.UseSqlServer(builder.Configuration.GetConnectionString("myCon"))
+            .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
+			);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

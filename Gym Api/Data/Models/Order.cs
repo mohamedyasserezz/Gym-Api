@@ -12,7 +12,7 @@ namespace Gym_Api.Data.Models
 
 		public bool IsPaid { get; set; } = false; // هل تم الدفع؟
 		public string? PaymentProof { get; set; } // صورة أو رقم التحويل
-		public int User_ID { get; set; }
+		public string User_ID { get; set; }
 		public User User { get; set; }
 		public ICollection<OrderItem> OrderItems = new List <OrderItem>();
 
