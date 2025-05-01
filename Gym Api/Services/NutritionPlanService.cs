@@ -44,7 +44,7 @@ namespace Gym_Api.Services
 		}
 
 
-		public async Task<NutritionPlan?> GetUserNutritionPlanByDayAsync(int userId, string day)
+		public async Task<NutritionPlan?> GetUserNutritionPlanByDayAsync(string userId, string day)
 		{
 			return await _repository.GetUserNutritionPlanByDayAsync(userId, day);
 		}

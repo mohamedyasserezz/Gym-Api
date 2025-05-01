@@ -100,12 +100,12 @@ namespace Gym_Api.Survices
 		}
 
 
-		public async Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(int coachId)
+		public async Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(string coachId)
 		{
 			return await _repository.GetUsersSubscribedToCoachAsync(coachId);
 		}
 
-		public async Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(int userId)
+		public async Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(string userId)
 		{
 			return await _repository.GetUserSubscriptionsAsync(userId);
 		}

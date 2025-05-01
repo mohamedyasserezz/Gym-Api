@@ -7,13 +7,13 @@ namespace Gym_Api.Repo
 	{
 		public Task<List<Subscribe>> GetAllSubscriptionsAsync();
 		public Task<Subscribe> GetSubscribeById(int id);
-		public Task<bool> HasActiveSubscriptionAsync(int userId, int coachId);
+		public Task<bool> HasActiveSubscriptionAsync(string userId, string coachId);
 		public Task<Subscribe> AddSubscriptionAsync(Subscribe subscribe);
 		public Task<List<Subscribe>> GetPendingSubscriptionsAsync();
 		public Task<bool> ApproveSubscriptionAsync(Subscribe subscribe);
 		public Task<bool> RejectSubscriptionAsync(Subscribe subscribe);
-		public Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(int coachId);
-		public Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(int userId);
+		public Task<List<UserSubscriptionDto>> GetUsersSubscribedToCoachAsync(string coachId);
+		public Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(string userId);
 
 
 	}

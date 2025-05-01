@@ -15,7 +15,7 @@
 		public string Snacks { get; set; }
 		public string? Vitamins { get; set; }
 		public string? Notes { get; set; }
-		public int Coach_ID { get; set; }
-		public int User_ID { get; set; }
+		public string Coach_ID { get; set; }
+		public string User_ID { get; set; }
 	}
 }

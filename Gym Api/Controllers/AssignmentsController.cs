@@ -29,7 +29,7 @@ namespace Gym_Api.Controllers
 
 
 		[HttpGet("user/{userId}/day/{day}")]
-		public async Task<IActionResult> GetUserAssignmentsByDay(int userId, string day)
+		public async Task<IActionResult> GetUserAssignmentsByDay(string userId, string day)
 		{
 			var assignments = await _assignmentService.GetUserAssignmentsByDayAsync(userId, day);
 

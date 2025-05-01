@@ -12,7 +12,7 @@ namespace Gym_Api.Repo
 			_context = context;
 		}
 
-		public async Task<bool> HasActiveSubscriptionAsync(int userId, int coachId)
+		public async Task<bool> HasActiveSubscriptionAsync(string userId, string coachId)
 		{
 			return await _context.Subscriptions.AnyAsync(s =>
 				s.User_ID == userId &&
@@ -31,7 +31,7 @@ namespace Gym_Api.Repo
 		}
 
 
-		public async Task<NutritionPlan?> GetUserNutritionPlanByDayAsync(int userId, string day)
+		public async Task<NutritionPlan?> GetUserNutritionPlanByDayAsync(string userId, string day)
 		{
 			return await _context.NutritionPlans
 				.FirstOrDefaultAsync(p => p.User_ID == userId && p.Day == day);

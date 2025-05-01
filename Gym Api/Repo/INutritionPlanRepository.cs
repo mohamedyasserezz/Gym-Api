@@ -5,8 +5,8 @@ namespace Gym_Api.Repo
 	public interface INutritionPlanRepository
 	{
 		public Task<NutritionPlan> AddNutritionPlanAsync(NutritionPlan plan);
-		public Task<bool> HasActiveSubscriptionAsync(int userId, int coachId);
-		public Task<NutritionPlan?> GetUserNutritionPlanByDayAsync(int userId, string day);
+		public Task<bool> HasActiveSubscriptionAsync(string userId, string coachId);
+		public Task<NutritionPlan?> GetUserNutritionPlanByDayAsync(string userId, string day);
 
 	}
 }

@@ -27,7 +27,7 @@ namespace Gym_Api.Controllers
 
 		// ✅ Get Coach by Id
 		[HttpGet("GetCoachbyId{id}")]
-		public async Task<IActionResult> GetById(int id)
+		public async Task<IActionResult> GetById(string id)
 		{
 			var coach = await _coachService.GetCoachByIdAsync(id);
 			if (coach == null)
@@ -63,7 +63,7 @@ namespace Gym_Api.Controllers
 		}
 
 		[HttpPut("AdminApprovesCoach{id}")]
-		public async Task<IActionResult> ApproveCoach(int id)
+		public async Task<IActionResult> ApproveCoach(string id)
 		{
 			var result = await _coachService.ApproveCoachAsync(id);
 			if (!result)

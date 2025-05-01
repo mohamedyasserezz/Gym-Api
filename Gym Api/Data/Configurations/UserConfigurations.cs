@@ -1,6 +1,7 @@
 ﻿using Gym_Api.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace Gym_Api.Data.Configurations
 {
@@ -16,6 +17,12 @@ namespace Gym_Api.Data.Configurations
 				.HasForeignKey(d => d.UserId)
 				.IsRequired()
 				.OnDelete(DeleteBehavior.NoAction);
+
+			builder
+			.HasOne(c => c.NutritionPlan)
+			.WithOne()
+			.HasForeignKey<NutritionPlan>(np => np.User_ID)
+			.OnDelete(DeleteBehavior.Cascade);
 		}
 	}
 }

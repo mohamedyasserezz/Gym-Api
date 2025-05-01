@@ -90,7 +90,7 @@ namespace Gym_Api.Controllers
 
 		// جلب الطلاب المشتركين مع كوتش
 		[HttpGet("coach/{coachId}")]
-		public async Task<IActionResult> GetUsersSubscribedToCoach(int coachId)
+		public async Task<IActionResult> GetUsersSubscribedToCoach(string coachId)
 		{
 			var result = await _subscribeService.GetUsersSubscribedToCoachAsync(coachId);
 			return Ok(result);
@@ -100,7 +100,7 @@ namespace Gym_Api.Controllers
 
 		// جلب الاشتراكات الخاصة باليوزر
 		[HttpGet("user/{userId}")]
-		public async Task<IActionResult> GetUserSubscriptions(int userId)
+		public async Task<IActionResult> GetUserSubscriptions(string userId)
 		{
 			var result = await _subscribeService.GetUserSubscriptionsAsync(userId);
 			return Ok(result);
