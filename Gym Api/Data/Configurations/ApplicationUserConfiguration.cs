@@ -10,7 +10,6 @@ namespace Gym_Api.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder.ToTable("Users");
 
             builder.Property(x => x.FullName)
                 .HasMaxLength(100);
