@@ -5,7 +5,7 @@ using Gym_Api.DTO.Authentication.Login;
 using Gym_Api.DTO.Authentication.RefreshToken;
 using Gym_Api.DTO.Authentication.Register;
 using Gym_Api.DTO.Authentication.ResendConfirmationEmail;
-using Gym_Api.DTO.ResetPassword;
+using Gym_Api.DTO.Authentication.ResetPassword;
 using Gym_Api.Survices.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
