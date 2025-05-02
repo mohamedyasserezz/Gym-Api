@@ -4,6 +4,7 @@
         string Id,
         string? Email,
         string FullName,
+        string? Image,
         string Token,
         int ExpiresIn,
         string RefreshToken,

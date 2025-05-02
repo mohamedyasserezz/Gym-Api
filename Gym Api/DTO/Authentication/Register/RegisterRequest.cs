@@ -1,10 +1,11 @@
 ﻿namespace Gym_Api.DTO.Authentication.Register
 {
     public record RegisterRequest(
-    string FirstName,
-    string LastName,
+    string FullName,
     string UserName,
     string Email,
-    string Password
+    IFormFile? Image,
+    string Password,
+    string UserType
     );
 }

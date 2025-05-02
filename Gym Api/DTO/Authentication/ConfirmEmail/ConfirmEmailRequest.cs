@@ -1,7 +1,7 @@
 ﻿namespace Gym_Api.DTO.Authentication.ConfirmEmail
 {
     public record ConfirmEmailRequest(
-        string UserId,
-        string Code
-        );
+    string Email,
+    string Otp
+);
 }
