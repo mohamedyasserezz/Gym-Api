@@ -6,11 +6,11 @@ namespace Gym_Api.DTO.Authentication.ConfirmEmail
     {
         public ConfirmEmailRequestValidator()
         {
-            RuleFor(X => X.UserId)
+            RuleFor(X => X.Email)
                 .NotEmpty()
                 .WithMessage("Plz Add a {PropertyName}");
 
-            RuleFor(X => X.Code)
+            RuleFor(X => X.Otp)
                .NotEmpty()
                .WithMessage("Plz Add a {PropertyName}");
 
