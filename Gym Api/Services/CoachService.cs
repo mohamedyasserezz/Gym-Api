@@ -49,11 +49,11 @@ namespace Gym_Api.Survices
 		public async Task<bool> ApproveCoachAsync(string id)
 		{
 			var coach = await _repository.GetByIdAsyncR(id);
-			if(coach == null || coach.IsApproved)
+			if(coach == null || coach.IsConfirmedByAdmin)
 			{
 				return false;
 			}
-			coach.IsApproved = true;
+			coach.IsConfirmedByAdmin = true;
 			await _repository.ApproveCoachAsyncR(coach);
 			return true;
 

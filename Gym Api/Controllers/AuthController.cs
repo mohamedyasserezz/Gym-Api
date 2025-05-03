@@ -1,5 +1,6 @@
 ﻿using Gym_Api.Common;
 using Gym_Api.Data.Models;
+using Gym_Api.DTO.Authentication.CompleteProfile;
 using Gym_Api.DTO.Authentication.ConfirmEmail;
 using Gym_Api.DTO.Authentication.ForgetPassword;
 using Gym_Api.DTO.Authentication.Login;
@@ -97,9 +98,11 @@ namespace Gym_Api.Controllers
 
 
         [HttpPost("AddNewCoach")]
-        public async Task<IActionResult> AddNewCoach()
+        public async Task<IActionResult> AddNewCoach([FromBody] RegisterCoachRequest registerCoach)
         {
+           var result= await _authService.CompleteCoachRegistration(registerCoach);
 
+            return result.IsSuccess ? Ok(result.Value) : result.ToProblem();
         }
 
 
@@ -108,8 +111,11 @@ namespace Gym_Api.Controllers
 
 
         [HttpPost("AddNewUser")]
-        public async Task<IActionResult> AddNewUser()
+        public async Task<IActionResult> AddNewUser([FromBody]RegsisterUserRequest userRequest)
         {
+            var result = await _authService.CompleteUserRegistration(userRequest);
+
+            return result.IsSuccess ? Ok(result.Value) : result.ToProblem();
 
         }
 
