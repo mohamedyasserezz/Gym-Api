@@ -14,8 +14,6 @@ namespace Gym_Api.Data.Configurations
             builder.Property(x => x.FullName)
                 .HasMaxLength(100);
 
-            builder.Property(u => u.Address)
-                .HasMaxLength(200);
 
             builder.Property(u => u.Image)
                 .HasMaxLength(500);
@@ -43,7 +41,6 @@ namespace Gym_Api.Data.Configurations
                     NormalizedEmail = DefaultUsers.AdminEmail.ToUpper(),
                     UserName = DefaultUsers.AdminrUserName,
                     NormalizedUserName = DefaultUsers.AdminrUserName.ToUpper(),
-                    Address = DefaultUsers.AdminAddress,
                     FullName = DefaultUsers.AdminName,
                     ConcurrencyStamp = DefaultUsers.AdminConcurrencyStamp,
                     EmailConfirmed = true,
