@@ -5,6 +5,7 @@ using Gym_Api.Common.Consts.Helpers;
 using Gym_Api.Data;
 using Gym_Api.Data.Models;
 using Gym_Api.DTO.Authentication;
+using Gym_Api.DTO.Authentication.CompleteProfile;
 using Gym_Api.DTO.Authentication.ConfirmEmail;
 using Gym_Api.DTO.Authentication.Register;
 using Gym_Api.DTO.Authentication.ResendConfirmationEmail;
@@ -442,8 +443,110 @@ namespace Gym_Api.Survices.Authentication
                 .ToArray());
         }
 
-        
+        public async Task<Result<AuthResponse>> CompleteCoachRegistration(RegisterCoachRequest request, CancellationToken cancellationToken = default)
+        {
 
-        public async Task<Result> 
+            if(await _context.Coaches.Where(c => c.UserId == request.Id).FirstOrDefaultAsync() is { })
+                return Result.Failure<AuthResponse>(UserErrors.DuplicatedEmail);
+
+            if (await _userManager.FindByIdAsync(request.Id) is not { } user)
+                return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+
+            var coach = new Coach
+            {
+                Availability = request.Availability,
+                Bio = request.Bio,
+                Experience_Years = request.Experience_Years,
+                Portfolio_Link = request.Portfolio_Link,
+                Specialization = request.Specialization,
+                ApplicationUser = user,
+                UserId = request.Id,
+            };
+
+            await _context.Coaches.AddAsync(coach, cancellationToken);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var (token, expiresIn) = _jwtProvider.GenerateToken(user, userRoles);
+
+            var refreshToken = GenerateRefreshToken();
+
+            var refreshTokenExpiration = DateTime.UtcNow.AddDays(_refreshTokenExpiryDays);
+
+            user.RefreshTokens.Add(new RefreshToken
+            {
+                Token = refreshToken,
+                ExpiresOn = refreshTokenExpiration
+            });
+
+            await _userManager.UpdateAsync(user);
+            var response = new AuthResponse(user.Id,
+                user.Email,
+                user.FullName,
+                user.Image,
+                token,
+                expiresIn,
+                refreshToken,
+                refreshTokenExpiration);
+
+            return Result.Success(response);
+
+
+        }
+
+        public async Task<Result<AuthResponse>> CompleteUserRegistration(RegsisterUserRequest request, CancellationToken cancellationToken = default)
+        {
+
+            if (await _context.Coaches.Where(c => c.UserId == request.Id).FirstOrDefaultAsync() is { })
+                return Result.Failure<AuthResponse>(UserErrors.DuplicatedEmail);
+
+            if (await _userManager.FindByIdAsync(request.Id) is not { } user)
+                return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+
+            var userProfile = new User
+            {
+                UserId = request.Id,
+                Height = request.Height,
+                Weight = request.Weight,
+                ApplicationUser = user,
+                Allergies = request.Allergies,
+                BDate = request.BDate,
+                Fitness_Goal = request.Fitness_Goal,
+                Gender = request.Gender,
+                MedicalConditions = request.MedicalConditions                
+            };
+
+            await _context.Users.AddAsync(userProfile, cancellationToken);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var (token, expiresIn) = _jwtProvider.GenerateToken(user, userRoles);
+
+            var refreshToken = GenerateRefreshToken();
+
+            var refreshTokenExpiration = DateTime.UtcNow.AddDays(_refreshTokenExpiryDays);
+
+            user.RefreshTokens.Add(new RefreshToken
+            {
+                Token = refreshToken,
+                ExpiresOn = refreshTokenExpiration
+            });
+
+            await _userManager.UpdateAsync(user);
+            var response = new AuthResponse(user.Id,
+                user.Email,
+                user.FullName,
+                user.Image,
+                token,
+                expiresIn,
+                refreshToken,
+                refreshTokenExpiration);
+
+            return Result.Success(response);
+        }
     }
 }
