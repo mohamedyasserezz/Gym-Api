@@ -221,25 +221,13 @@ namespace Gym_Api.Survices.Authentication
                 if (user.UserType == UserType.Coach)
                 {
                     await _userManager.AddToRoleAsync(user, Users.Coach);
-                    var patient = new Coach
-                    {
-                        UserId = user.Id,
-                        ApplicationUser = user,
-                    };
-                    await _context.Coaches.AddAsync(patient);
-                    await _context.SaveChangesAsync(cancellationToken);
+                    
                 }
                 else if (user.UserType == UserType.User)
                 {
                     await _userManager.AddToRoleAsync(user, Users.User);
 
-                    var doctor = new User
-                    {
-                        UserId = user.Id,
-                        ApplicationUser = user,
-                    };
-                    await _context.Users.AddAsync(doctor);
-                    await _context.SaveChangesAsync(cancellationToken);
+                    
                 }
                 else if (user.UserType == UserType.Admin)
                 {
@@ -455,5 +443,7 @@ namespace Gym_Api.Survices.Authentication
         }
 
         
+
+        public async Task<Result> 
     }
 }

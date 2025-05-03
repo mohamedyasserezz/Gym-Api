@@ -94,5 +94,25 @@ namespace Gym_Api.Controllers
 
             return result.IsSuccess ? Ok() : result.ToProblem();
         }
+
+
+        [HttpPost("AddNewCoach")]
+        public async Task<IActionResult> AddNewCoach()
+        {
+
+        }
+
+
+
+
+
+
+        [HttpPost("AddNewUser")]
+        public async Task<IActionResult> AddNewUser()
+        {
+
+        }
+
+
     }
 }

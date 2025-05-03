@@ -12,7 +12,6 @@ namespace Gym_Api.Data.Models
 		public int Experience_Years { get; set; }
 		public string Availability { get; set; } = default!;
 		public string Bio { get; set; } = default!;
-		public bool IsApproved { get; set; } = false;
         public bool IsConfirmedByAdmin { get; set; } = false;
 
         public ICollection<Assignment> Assignments = new List<Assignment>();
