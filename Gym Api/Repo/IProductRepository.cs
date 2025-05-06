@@ -6,6 +6,7 @@ namespace Gym_Api.Repo
 	{
 	    public Task<List<Product>> GetAllProductsAsync();
 		public Task<Product?> GetProductByIdAsync(int id);
+		public Task<int> GetProductsCount();
 		public Task<Product> AddProductAsync(Product product);
 		public Task<bool> UpdateProductAsync(Product product);
 	    public Task<bool> DeleteProductAsync(Product product);

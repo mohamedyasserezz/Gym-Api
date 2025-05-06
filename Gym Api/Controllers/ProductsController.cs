@@ -36,6 +36,13 @@ namespace Gym_Api.Controllers
 		}
 
 
+		[HttpGet("Getproductscount")]
+		public async Task<IActionResult> Getproductscount()
+		{
+			var products = await _productService.Getproductscountasync();
+			return Ok(products);
+		}
+
 
 		[HttpPost("AddNewProduct")]
 		public async Task<IActionResult> AddProduct([FromForm] CreateProductDto dto)

@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Gym_Api</RootNamespace>
+    <UserSecretsId>1b0a9356-c89a-4546-9bd5-d3bfa893c283</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

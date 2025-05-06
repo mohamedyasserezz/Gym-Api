@@ -62,6 +62,14 @@ namespace Gym_Api.Controllers
 			return Ok(coaches);
 		}
 
+		[HttpGet("GetCoachCount")]
+
+		public async Task<IActionResult> GetCountOfCoach()
+		{
+			var coaches = await _coachService.GetCoachCountAsync();
+			return Ok(coaches);
+		}
+
 		[HttpPut("AdminApprovesCoach{id}")]
 		public async Task<IActionResult> ApproveCoach(string id)
 		{

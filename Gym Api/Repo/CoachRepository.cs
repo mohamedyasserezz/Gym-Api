@@ -16,7 +16,7 @@ namespace Gym_Api.Repo
 
 		public async Task<List<Coach>> GetAllAsyncR()
 		{
-			return await _context.Coaches.Where(c => c.IsConfirmedByAdmin).ToListAsync();
+			return await _context.Coaches.ToListAsync();
 		}
 
 
@@ -45,6 +45,10 @@ namespace Gym_Api.Repo
 			return await _context.Coaches.Where(c => !c.IsConfirmedByAdmin).ToListAsync();
 		}		
 
+		public async Task<int> GetCoachCount()
+		{
+			return await _context.Coaches.CountAsync();
+		}
 		public async Task<bool> ApproveCoachAsyncR(Coach coach)
 		{
 			_context.Coaches.Update(coach);

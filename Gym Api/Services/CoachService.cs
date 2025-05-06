@@ -46,6 +46,11 @@ namespace Gym_Api.Survices
 		}
 
 
+		public async Task<int> GetCoachCountAsync()
+		{
+			return await _repository.GetCoachCount();
+		}
+
 		public async Task<bool> ApproveCoachAsync(string id)
 		{
 			var coach = await _repository.GetByIdAsyncR(id);
