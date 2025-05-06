@@ -25,6 +25,11 @@ namespace Gym_Api.Survices
 			return await _productRepository.GetProductByIdAsync(id);
 		}
 
+		public async Task<int> Getproductscountasync()
+		{
+			return await _productRepository.GetProductsCount();
+		}
+
 		public async Task<Product> AddProductAsyncS(CreateProductDto dto)
 		{
 			var product = new Product

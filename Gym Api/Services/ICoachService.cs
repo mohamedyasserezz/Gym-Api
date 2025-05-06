@@ -9,6 +9,7 @@ namespace Gym_Api.Survices
 		public Task<List<Coach>?> GetCoachesBySpecializationAsync(string specialization);
 	    public Task<List<Coach>> GetApprovedCoachesAsync();
 		public Task<List<Coach>> GetUnapprovedCoachesAsync();
+		public Task<int> GetCoachCountAsync();
 		public Task<bool> ApproveCoachAsync(string id);
 
 

@@ -22,6 +22,11 @@ namespace Gym_Api.Repo
 			return await _context.Products.FirstOrDefaultAsync(p => p.Product_ID == id);
 		}
 
+		public async Task<int> GetProductsCount()
+		{
+			return await _context.Products.CountAsync();
+		}
+
 		public async Task<Product> AddProductAsync(Product product)
 		{
 			await _context.Products.AddAsync(product);
