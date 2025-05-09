@@ -15,7 +15,7 @@ namespace Gym_Api.Controllers
 			_service = service;
 		}
 
-		[HttpPost("AddNutritionPlan")]
+		[HttpPost("AddNutritionPlanForUser")]
 		public async Task<IActionResult> AddNutritionPlan([FromBody] CreateNutritionPlanDto dto)
 		{
 			var plan = await _service.AddNutritionPlanAsync(dto);

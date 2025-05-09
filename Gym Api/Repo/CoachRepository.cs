@@ -45,16 +45,38 @@ namespace Gym_Api.Repo
 			return await _context.Coaches.Where(c => !c.IsConfirmedByAdmin).ToListAsync();
 		}		
 
+
 		public async Task<int> GetCoachCount()
 		{
 			return await _context.Coaches.CountAsync();
 		}
+
+
 		public async Task<bool> ApproveCoachAsyncR(Coach coach)
 		{
 			_context.Coaches.Update(coach);
 			await _context.SaveChangesAsync();
 			return true;
 		}
+
+
+		public async Task<bool> UpdateAsync(Coach coach)
+		{
+			_context.Coaches.Update(coach);
+			await _context.SaveChangesAsync();
+			return true;
+		}
+
+		public async Task<bool> DeleteAsync(Coach coach)
+		{
+			_context.Coaches.Remove(coach);
+			await _context.SaveChangesAsync();
+			return true;
+		}
+
+
+
+
 
 	}
 }

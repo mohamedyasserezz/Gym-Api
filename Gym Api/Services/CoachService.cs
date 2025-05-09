@@ -1,5 +1,6 @@
 ﻿using Gym_Api.Data;
 using Gym_Api.Data.Models;
+using Gym_Api.DTO;
 using Gym_Api.Repo;
 using Microsoft.EntityFrameworkCore;
 
@@ -63,6 +64,33 @@ namespace Gym_Api.Survices
 			return true;
 
 		}
+
+
+		public async Task<bool> UpdateCoachAsync(string coachId, UpdateCoachDto dto)
+		{
+			var coach = await _repository.GetByIdAsyncR(coachId);
+			if (coach == null) return false;
+
+			coach.Specialization = dto.Specialization;
+			coach.Portfolio_Link = dto.Portfolio_Link;
+			coach.Experience_Years = dto.Experience_Years;
+			coach.Availability = dto.Availability;
+			coach.Bio = dto.Bio;
+
+			await _repository.UpdateAsync(coach);
+			return true;
+		}
+
+
+		public async Task<bool> DeleteCoachAsync(string coachId)
+		{
+			var coach = await _repository.GetByIdAsyncR(coachId);
+			if (coach == null) return false;
+
+			await _repository.DeleteAsync(coach);
+			return true;
+		}
+
 
 
 	}

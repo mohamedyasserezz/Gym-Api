@@ -1,4 +1,5 @@
-﻿using Gym_Api.Survices;
+﻿using Gym_Api.DTO;
+using Gym_Api.Survices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -55,12 +56,14 @@ namespace Gym_Api.Controllers
 			return Ok(coaches);
 		}
 
+
 		[HttpGet("AllUnapprovedCoaches")]
 		public async Task<IActionResult> GetUnapprovedCoaches()
 		{
 			var coaches = await _coachService.GetUnapprovedCoachesAsync();
 			return Ok(coaches);
 		}
+
 
 		[HttpGet("GetCoachCount")]
 
@@ -79,6 +82,32 @@ namespace Gym_Api.Controllers
 
 			return Ok("Coach approved successfully.");
 		}
+
+
+		[HttpPut("UpdateCoach{coachId}")]
+		public async Task<IActionResult> UpdateCoach(string coachId, [FromBody] UpdateCoachDto dto)
+		{
+			var success = await _coachService.UpdateCoachAsync(coachId, dto);
+			if (!success)
+			{
+				return NotFound("Coach not found");
+			}
+			return Ok("Coach Updated Successfuly");
+		}
+
+
+
+		[HttpDelete("DeleteCoach{coachId}")]
+		public async Task<IActionResult> DeleteCoach(string coachId)
+		{
+			var success = await _coachService.DeleteCoachAsync(coachId);
+			if (!success)
+			{
+				return NotFound("Coach not found");
+			}
+			return Ok("Coach Deleted Successfuly");
+		}
+
 
 
 	}

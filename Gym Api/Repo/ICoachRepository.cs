@@ -11,5 +11,7 @@ namespace Gym_Api.Repo
 		public Task<List<Coach>> GetUnapprovedCoachesAsyncR();
 		public Task<int> GetCoachCount();
 		public Task<bool> ApproveCoachAsyncR(Coach coach);
+		public Task<bool> UpdateAsync(Coach coach);
+		public Task<bool> DeleteAsync(Coach coach);
 	}
 }
