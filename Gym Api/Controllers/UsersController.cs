@@ -1,4 +1,5 @@
-﻿using Gym_Api.Services;
+﻿using Gym_Api.DTO;
+using Gym_Api.Services;
 using Gym_Api.Survices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +49,31 @@ namespace Gym_Api.Controllers
 
 
 
+
+		[HttpPut("UpdateUser{userId}")]
+		public async Task<IActionResult> UpdateUser(string userId, [FromBody] UpdateUserDto dto)
+		{
+			var success = await _userService.UpdateUserdataAsync(userId, dto);
+			if (!success)
+			{
+				return NotFound("User not found");
+			}
+			return Ok("User Updated Successfuly");
+		}
+
+
+
+
+		[HttpDelete("DeleteUser{userId}")]
+		public async Task<IActionResult> DeleteUser(string userId)
+		{
+			var success = await _userService.DeleteUserdataAsync(userId);
+			if (!success)
+			{
+				return NotFound("User not found");
+			}
+			return Ok("User Deleted Successfuly");
+		}
 
 
 

@@ -1,4 +1,5 @@
 ﻿using Gym_Api.Data.Models;
+using Gym_Api.DTO;
 
 namespace Gym_Api.Survices
 {
@@ -11,7 +12,8 @@ namespace Gym_Api.Survices
 		public Task<List<Coach>> GetUnapprovedCoachesAsync();
 		public Task<int> GetCoachCountAsync();
 		public Task<bool> ApproveCoachAsync(string id);
-
+		public Task<bool> UpdateCoachAsync(string coachId, UpdateCoachDto dto);
+		public Task<bool> DeleteCoachAsync(string coachId);
 
 
 	}

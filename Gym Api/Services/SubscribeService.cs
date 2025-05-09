@@ -55,10 +55,10 @@ namespace Gym_Api.Survices
 			{
 				return subscriptionType switch
 				{
-					"شهر" => DateTime.UtcNow.AddMonths(1),
-					"3 شهور" => DateTime.UtcNow.AddMonths(3),
-					"6 شهور" => DateTime.UtcNow.AddMonths(6),
-					"سنه" => DateTime.UtcNow.AddMonths(12),
+					"Month" => DateTime.UtcNow.AddMonths(1),
+					"3 Months" => DateTime.UtcNow.AddMonths(3),
+					"6 Months " => DateTime.UtcNow.AddMonths(6),
+					"1 Year" => DateTime.UtcNow.AddMonths(12),
 					_ => DateTime.UtcNow.AddMonths(1) // الديفولت شهر لو مش اختار حاجة
 				};
 			}
