@@ -28,7 +28,7 @@ namespace Gym_Api.Controllers
 
 
 
-		[HttpGet("GetSubscribeById")]
+		[HttpGet("GetSubscribeById/{id}")]
 		public async Task<IActionResult> GetSubscribeById(int id)
 		{
 			var subscribe = await _subscribeService.GetSubscribeByIdS(id);
@@ -84,7 +84,7 @@ namespace Gym_Api.Controllers
 			if (!result)
 				return BadRequest("فشل في رفض الاشتراك. تحقق من حالة الاشتراك أو الدفع.");
 
-			return Ok("تم رفض الاشتراك وحذفه بنجاح.");
+			return Ok("تم رفض الاشتراك بنجاح");
 		}
 
 

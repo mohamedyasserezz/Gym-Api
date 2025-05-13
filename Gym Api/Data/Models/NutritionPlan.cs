@@ -21,6 +21,8 @@ namespace Gym_Api.Data.Models
 		public string? Vitamins { get; set; }
 		public string? Notes { get; set; }
 
+		
+
 		[ForeignKey("Coach")]
 		public string Coach_ID { get; set; }
 		public Coach coach { get; set; }
