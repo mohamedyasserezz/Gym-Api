@@ -23,7 +23,7 @@ namespace Gym_Api.Repo
 
 		public async Task<Coach?> GetByIdAsyncR(string id)
 		{
-			return await _context.Coaches.FirstOrDefaultAsync(c => c.UserId == id && c.IsConfirmedByAdmin);
+			return await _context.Coaches.FirstOrDefaultAsync(c => c.UserId == id);
 		}
 
 

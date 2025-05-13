@@ -30,6 +30,7 @@ namespace Gym_Api.Repo
 				s.User_ID == userId &&
 				s.Coach_ID == coachId &&
 				s.IsPaid == true &&
+				s.Status == "Active" &&
 				s.IsApproved == true &&
 				s.EndDate > DateTime.UtcNow);
 		}
@@ -45,7 +46,7 @@ namespace Gym_Api.Repo
 		public async Task<List<Subscribe>> GetPendingSubscriptionsAsync()
 		{
 			return await _context.Subscriptions
-				.Where(s => s.IsPaid && !s.IsApproved)
+				.Where(s => !s.IsApproved)
 				.Include(s => s.User)
 				.ToListAsync();
 		}
@@ -60,7 +61,7 @@ namespace Gym_Api.Repo
 
 		public async Task<bool> RejectSubscriptionAsync(Subscribe subscribe)
 		{
-			_context.Subscriptions.Remove(subscribe);
+			_context.Subscriptions.Update(subscribe);
 			await _context.SaveChangesAsync();
 			return true;
 		}
@@ -74,8 +75,14 @@ namespace Gym_Api.Repo
 		   UserId = s.User.UserId,
 		   UserName = s.User.ApplicationUser.FullName,
 		   UserEmail = s.User.ApplicationUser.Email!,
-		   Image = s.User.ApplicationUser.Image!
-
+		   Image = s.User.ApplicationUser.Image!,
+		   Height = s.User.Height,
+		   Weight =s.User.Weight,
+		   BDate =s.User.BDate,
+		   Gender =s.User.Gender,
+		   MedicalConditions =s.User.MedicalConditions,
+		   Allergies =s.User.Allergies,
+		   Fitness_Goal =s.User.Fitness_Goal
 	              })
 			 
 	            .ToListAsync();

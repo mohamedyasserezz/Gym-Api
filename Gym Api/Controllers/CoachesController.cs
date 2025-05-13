@@ -73,8 +73,8 @@ namespace Gym_Api.Controllers
 			return Ok(coaches);
 		}
 
-		[HttpPut("AdminApprovesCoach{id}")]
-		public async Task<IActionResult> ApproveCoach(string id)
+		[HttpPut("AdminApprovesCoach/{id}")]
+		public async Task<IActionResult> ApproveCoach([FromRoute]string id)
 		{
 			var result = await _coachService.ApproveCoachAsync(id);
 			if (!result)

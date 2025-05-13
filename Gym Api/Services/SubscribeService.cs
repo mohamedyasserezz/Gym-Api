@@ -44,7 +44,8 @@ namespace Gym_Api.Survices
 				Coach_ID = dto.Coach_ID,
 				SubscriptionType = dto.SubscriptionType,
 				PaymentProof = proofPath,
-				IsPaid = true,
+				Status ="pending",
+				IsPaid = false,
 				IsApproved = false,
 				StartDate = DateTime.UtcNow,
 				EndDate = CalculateEndDate(dto.SubscriptionType)
@@ -55,11 +56,9 @@ namespace Gym_Api.Survices
 			{
 				return subscriptionType switch
 				{
-					"Month" => DateTime.UtcNow.AddMonths(1),
 					"3 Months" => DateTime.UtcNow.AddMonths(3),
-					"6 Months " => DateTime.UtcNow.AddMonths(6),
-					"1 Year" => DateTime.UtcNow.AddMonths(12),
-					_ => DateTime.UtcNow.AddMonths(1) // الديفولت شهر لو مش اختار حاجة
+					"6 Months" => DateTime.UtcNow.AddMonths(6),
+					"1 Year" => DateTime.UtcNow.AddMonths(12)
 				};
 			}
 			await _repository.AddSubscriptionAsync(subscription);
@@ -76,11 +75,12 @@ namespace Gym_Api.Survices
 		public async Task<bool> ApproveSubscriptionAsync(int subscribeId)
 		{
 			var subscribe = await _repository.GetSubscribeById(subscribeId);
-			if (subscribe == null || !subscribe.IsPaid || subscribe.IsApproved)
+			if (subscribe == null || subscribe.IsApproved)
 			{
 				return false;
 			}
 			subscribe.IsApproved = true;
+			subscribe.IsPaid = true;
 			subscribe.Status = "Active";
 			await _repository.ApproveSubscriptionAsync(subscribe);
 			return true;
@@ -89,12 +89,13 @@ namespace Gym_Api.Survices
 		public async Task<bool> RejectSubscriptionAsync(int subscribeId)
 		{
 			var subscribe = await _repository.GetSubscribeById(subscribeId);
-			if (subscribe == null || !subscribe.IsPaid || subscribe.IsApproved)
+			if (subscribe == null || !subscribe.IsPaid)
 			{
 				return false;
 			}
 			subscribe.Status = "Rejected";
 			subscribe.IsApproved = false;
+			subscribe.IsPaid = false;
 			await _repository.RejectSubscriptionAsync(subscribe);
 			 return true;
 		}
