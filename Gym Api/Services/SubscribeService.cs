@@ -56,9 +56,9 @@ namespace Gym_Api.Survices
 			{
 				return subscriptionType switch
 				{
-					"3 Months" => DateTime.UtcNow.AddMonths(3),
-					"6 Months" => DateTime.UtcNow.AddMonths(6),
-					"1 Year" => DateTime.UtcNow.AddMonths(12)
+					"3_Months" => DateTime.UtcNow.AddMonths(3),
+					"6_Months" => DateTime.UtcNow.AddMonths(6),
+					"1_Year" => DateTime.UtcNow.AddMonths(12)
 				};
 			}
 			await _repository.AddSubscriptionAsync(subscription);
@@ -75,21 +75,33 @@ namespace Gym_Api.Survices
 		public async Task<bool> ApproveSubscriptionAsync(int subscribeId)
 		{
 			var subscribe = await _repository.GetSubscribeById(subscribeId);
-			if (subscribe == null || subscribe.IsApproved)
+			if (subscribe == null)
 			{
+				Console.WriteLine($"Subscription with id {subscribeId} not found.");
 				return false;
 			}
+
+			if (subscribe.IsApproved)
+			{
+				Console.WriteLine($"Subscription with id {subscribeId} is already approved.");
+				return false;
+			}
+
+
 			subscribe.IsApproved = true;
 			subscribe.IsPaid = true;
 			subscribe.Status = "Active";
+			subscribe.User.ApplicationUser.UserType = UserType.Trainee;
 			await _repository.ApproveSubscriptionAsync(subscribe);
+
+			Console.WriteLine($"Subscription {subscribeId} approved successfully.");
 			return true;
 		}
 
 		public async Task<bool> RejectSubscriptionAsync(int subscribeId)
 		{
 			var subscribe = await _repository.GetSubscribeById(subscribeId);
-			if (subscribe == null || !subscribe.IsPaid)
+			if (subscribe == null)
 			{
 				return false;
 			}

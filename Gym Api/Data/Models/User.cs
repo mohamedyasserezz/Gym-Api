@@ -17,7 +17,7 @@ namespace Gym_Api.Data.Models
 
 		public ICollection<Assignment> Assignments = new List<Assignment>();
 		public ICollection<Subscribe> Subscriptions = new List<Subscribe>();
-		public NutritionPlan? NutritionPlan { get; set; } = default!;
+		public ICollection<NutritionPlan> NutritionPlans = new List<NutritionPlan>();
 		public ICollection<Order> Orders = new List<Order>();
 
 	}

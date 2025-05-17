@@ -33,6 +33,10 @@ namespace Gym_Api.Repo
 				.FirstOrDefaultAsync(e => e.Exercise_Name == name);
 		}
 
+		public async Task<List<Exercise>> GetByCategoryIdAsync(int CategoryId)
+		{
+			return await _context.Exercises.Where(e => e.Category_ID == CategoryId).ToListAsync();
+		}
 
 
 		public async Task<Exercise> AddExerciseAsyncR(Exercise exercise)

@@ -1,4 +1,5 @@
-﻿using Gym_Api.DTO;
+﻿using Gym_Api.Data.Models;
+using Gym_Api.DTO;
 using Gym_Api.Survices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -67,9 +68,12 @@ namespace Gym_Api.Controllers
 		[HttpPut("approve/{id}")]
 		public async Task<IActionResult> ApproveSubscription(int id)
 		{
+
 			var result = await _subscribeService.ApproveSubscriptionAsync(id);
 			if (!result)
-				return BadRequest("فشل في الموافقة على الاشتراك. تحقق من حالة الاشتراك أو الدفع.");
+			{
+				return BadRequest("فشل في الموافقة على الاشتراك.");
+			}
 
 			return Ok("تمت الموافقة على الاشتراك بنجاح.");
 		}

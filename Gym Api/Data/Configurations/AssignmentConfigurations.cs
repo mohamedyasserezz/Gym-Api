@@ -11,17 +11,20 @@ namespace Gym_Api.Data.Configurations
             builder
             .HasOne(a => a.User)
             .WithMany(u => u.Assignments)
-            .HasForeignKey(a => a.User_ID);
+            .HasForeignKey(a => a.User_ID)
+            .OnDelete(DeleteBehavior.Cascade); 
 
             builder
                 .HasOne(a => a.Coach)
                 .WithMany(c => c.Assignments)
-            .HasForeignKey(a => a.Coach_ID);
+            .HasForeignKey(a => a.Coach_ID)
+            .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasOne(a => a.Exercise)
                 .WithMany(e => e.Assignments)
-                .HasForeignKey(a => a.Exercise_ID);
+                .HasForeignKey(a => a.Exercise_ID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

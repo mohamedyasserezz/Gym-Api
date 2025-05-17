@@ -31,13 +31,12 @@ namespace Gym_Api.Repo
 		}
 
 
-		public async Task<NutritionPlan?> GetUserNutritionPlanByDayAsync(string userId, string day)
+		public async Task<List<NutritionPlan>> GetAllUserNutritionPlansAsync(string userId)
 		{
 			return await _context.NutritionPlans
-				.FirstOrDefaultAsync(p => p.User_ID == userId && p.Day == day);
+				.Where(np => np.User_ID == userId)
+				.ToListAsync();
 		}
-
-
 
 
 	}
