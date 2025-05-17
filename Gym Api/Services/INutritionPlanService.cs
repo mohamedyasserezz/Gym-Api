@@ -6,7 +6,6 @@ namespace Gym_Api.Services
 	public interface INutritionPlanService
 	{
 		public Task<string> AddNutritionPlanAsync(CreateNutritionPlanDto dto);
-		public Task<NutritionPlan?> GetUserNutritionPlanByDayAsync(string userId, string day);
-
+		public Task<List<NutritionPlan>> GetAllUserNutritionPlansAsync(string userId);
 	}
 }

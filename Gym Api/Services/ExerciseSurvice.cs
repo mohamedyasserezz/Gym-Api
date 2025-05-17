@@ -36,6 +36,12 @@ namespace Gym_Api.Survices
 			return await _repository.GetExerciseByNameAsyncR(name);
 		}
 
+		public async Task<List<Exercise>> GetByCategoryIdAsync(int categoryid)
+		{
+			return await _repository.GetByCategoryIdAsync(categoryid);
+		}
+
+
 
 		public async Task<Exercise> AddExerciseAsync(CreateNewExerciseDto dto)
 		{

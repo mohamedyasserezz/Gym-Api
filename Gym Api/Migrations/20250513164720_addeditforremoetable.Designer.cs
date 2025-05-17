@@ -4,6 +4,7 @@ using Gym_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250513164720_addeditforremoetable")]
+    partial class addeditforremoetable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +189,7 @@ namespace Gym_Api.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CANC-APP.COM",
                             NormalizedUserName = "MOHAMED_YASSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM+lFlGv57XdJ/RcC7AlNv1B42LI2qiELGBBWxImXrQbppT3SalfP/iDWMMrxkdtbQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJSsJFj0PQu7AZbjUWHSk0w3kYv54njartoA69TSPkWt/7+BJrYMohS4vwx3hw1f3g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "55BF92C9EF0249CDA210D85D1A851BC9",
                             TwoFactorEnabled = false,
@@ -399,7 +402,8 @@ namespace Gym_Api.Migrations
 
                     b.HasIndex("Coach_ID");
 
-                    b.HasIndex("User_ID");
+                    b.HasIndex("User_ID")
+                        .IsUnique();
 
                     b.ToTable("NutritionPlans");
                 });
@@ -790,15 +794,13 @@ namespace Gym_Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Gym_Api.Data.Models.User", "user")
-                        .WithMany("NutritionPlans")
-                        .HasForeignKey("User_ID")
+                    b.HasOne("Gym_Api.Data.Models.User", null)
+                        .WithOne("NutritionPlan")
+                        .HasForeignKey("Gym_Api.Data.Models.NutritionPlan", "User_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("coach");
-
-                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.Order", b =>
@@ -945,7 +947,7 @@ namespace Gym_Api.Migrations
                 {
                     b.Navigation("Assignments");
 
-                    b.Navigation("NutritionPlans");
+                    b.Navigation("NutritionPlan");
 
                     b.Navigation("Orders");
 

@@ -7,5 +7,6 @@
 		public int ExerciseId { get; set; }
 		public string Day { get; set; }
 		public string? Notes { get; set; }
+
 	}
 }

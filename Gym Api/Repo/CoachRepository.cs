@@ -16,14 +16,14 @@ namespace Gym_Api.Repo
 
 		public async Task<List<Coach>> GetAllAsyncR()
 		{
-			return await _context.Coaches.ToListAsync();
+			return await _context.Coaches.Include(c => c.ApplicationUser).ToListAsync();
 		}
 
 
 
 		public async Task<Coach?> GetByIdAsyncR(string id)
 		{
-			return await _context.Coaches.FirstOrDefaultAsync(c => c.UserId == id);
+			return await _context.Coaches.Include(c => c.ApplicationUser).FirstOrDefaultAsync(c => c.UserId == id);
 		}
 
 
@@ -37,12 +37,12 @@ namespace Gym_Api.Repo
 
 		public async Task<List<Coach>> GetApprovedCoachesAsyncR()
 		{
-			return await _context.Coaches.Where(c => c.IsConfirmedByAdmin).ToListAsync();
+			return await _context.Coaches.Include(c => c.ApplicationUser).Where(c => c.IsConfirmedByAdmin).ToListAsync();
 		}
 
 		public async Task<List<Coach>> GetUnapprovedCoachesAsyncR()
 		{
-			return await _context.Coaches.Where(c => !c.IsConfirmedByAdmin).ToListAsync();
+			return await _context.Coaches.Include(c => c.ApplicationUser).Where(c => !c.IsConfirmedByAdmin).ToListAsync();
 		}		
 
 

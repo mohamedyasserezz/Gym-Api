@@ -27,7 +27,7 @@ namespace Gym_Api.Controllers
 
 
 		// ✅ Get Coach by Id
-		[HttpGet("GetCoachbyId{id}")]
+		[HttpGet("GetCoachbyId/{id}")]
 		public async Task<IActionResult> GetById(string id)
 		{
 			var coach = await _coachService.GetCoachByIdAsync(id);
@@ -84,7 +84,7 @@ namespace Gym_Api.Controllers
 		}
 
 
-		[HttpPut("UpdateCoach{coachId}")]
+		[HttpPut("UpdateCoach/{coachId}")]
 		public async Task<IActionResult> UpdateCoach(string coachId, [FromBody] UpdateCoachDto dto)
 		{
 			var success = await _coachService.UpdateCoachAsync(coachId, dto);
@@ -97,7 +97,7 @@ namespace Gym_Api.Controllers
 
 
 
-		[HttpDelete("DeleteCoach{coachId}")]
+		[HttpDelete("DeleteCoach/{coachId}")]
 		public async Task<IActionResult> DeleteCoach(string coachId)
 		{
 			var success = await _coachService.DeleteCoachAsync(coachId);

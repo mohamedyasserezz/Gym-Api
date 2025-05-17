@@ -1,5 +1,6 @@
 ﻿using Gym_Api.DTO;
 using Gym_Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gym_Api.Controllers
@@ -15,6 +16,7 @@ namespace Gym_Api.Controllers
 			_service = service;
 		}
 
+
 		[HttpPost("AddNutritionPlanForUser")]
 		public async Task<IActionResult> AddNutritionPlan([FromBody] CreateNutritionPlanDto dto)
 		{
@@ -24,14 +26,23 @@ namespace Gym_Api.Controllers
 
 
 
-		[HttpGet("user/{userId}/day/{day}")]
-		public async Task<IActionResult> GetNutritionPlanByDay(string userId, string day)
+		[HttpGet("GetAllUserNutritionplans/{userId}")]
+		public async Task<IActionResult> GetAllUserNutritionPlans(string userId)
 		{
-			var plan = await _service.GetUserNutritionPlanByDayAsync(userId, day);
-			if (plan == null)
-				return NotFound($"{day} لا توجد خطه غذائيه لك في يوم");
-			return Ok(plan);
+			var plans = await _service.GetAllUserNutritionPlansAsync(userId);
+
+			if (plans == null || !plans.Any())
+			{
+				return NotFound($"لا توجد خطط غذائية للمستخدم ذو الـ userId: {userId}");
+			}
+
+			return Ok(plans);
 		}
+
+
+
+
+
 
 
 	}

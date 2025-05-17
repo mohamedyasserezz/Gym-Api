@@ -1,7 +1,9 @@
 ﻿using Gym_Api.DTO;
 using Gym_Api.Survices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace Gym_Api.Controllers
 {
@@ -33,13 +35,27 @@ namespace Gym_Api.Controllers
 		{
 			var assignments = await _assignmentService.GetUserAssignmentsByDayAsync(userId, day);
 
+			// لو القايمة فاضية أو null، رجّع NotFound مع رسالة
 			if (assignments == null || !assignments.Any())
-				return NotFound($"{day} لا توجد مهام لك في يوم");
+			{
+				return NotFound($"لا توجد مهام لك في يوم {day}");
+			}
 
 			return Ok(assignments);
 		}
 
 
+		[HttpGet("GetAllUserAssignments/{userId}")]
+		public async Task<IActionResult> GetAllUserAssignments(string userId)
+		{
+			var assignments = await _assignmentService.GetAllUserAssignmentsAsync(userId);
 
+			if (assignments == null || !assignments.Any())
+			{
+				return NotFound($"لا توجد مهام للمسخدم {userId}");
+			}
+
+			return Ok(assignments);
+		}
 	}
 }

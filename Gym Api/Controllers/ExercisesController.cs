@@ -54,6 +54,16 @@ namespace Gym_Api.Controllers
 		}
 
 
+		[HttpGet("GetByCategoryId/{categoryId}")]
+		public async Task<IActionResult> GetByCategoryId(int categoryId)
+		{
+			var exercises = await _exerciseSurvice.GetByCategoryIdAsync(categoryId);
+			if (exercises == null)
+			{
+				return NotFound("No exercises exist for this category");
+			}
+			return Ok(exercises);
+		}
 
 
 		// ✅ Add New Exercise

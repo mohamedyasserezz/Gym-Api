@@ -18,11 +18,7 @@ namespace Gym_Api.Data.Configurations
 				.IsRequired()
 				.OnDelete(DeleteBehavior.NoAction);
 
-			builder
-			.HasOne(c => c.NutritionPlan)
-			.WithOne()
-			.HasForeignKey<NutritionPlan>(np => np.User_ID)
-			.OnDelete(DeleteBehavior.Cascade);
+		
 		}
 	}
 }

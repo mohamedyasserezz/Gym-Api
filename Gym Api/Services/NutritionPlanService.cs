@@ -20,6 +20,8 @@ namespace Gym_Api.Services
 			{
 				var plan = new NutritionPlan
 				{
+					Coach_ID = dto.Coach_ID,
+					User_ID = dto.User_ID,
 					Day = dto.Day,
 					Calories_Needs = dto.Calories_Needs,
 					Carbs_Needs = dto.Carbs_Needs,
@@ -32,9 +34,7 @@ namespace Gym_Api.Services
 					FifthMeal = dto.FifthMeal,
 					Snacks = dto.Snacks,
 					Vitamins = dto.Vitamins,
-					Notes = dto.Notes,
-					Coach_ID = dto.Coach_ID,
-					User_ID = dto.User_ID
+					Notes = dto.Notes
 				};
 
 				await _repository.AddNutritionPlanAsync(plan);
@@ -44,11 +44,10 @@ namespace Gym_Api.Services
 		}
 
 
-		public async Task<NutritionPlan?> GetUserNutritionPlanByDayAsync(string userId, string day)
+		public async Task<List<NutritionPlan>> GetAllUserNutritionPlansAsync(string userId)
 		{
-			return await _repository.GetUserNutritionPlanByDayAsync(userId, day);
+			return await _repository.GetAllUserNutritionPlansAsync(userId);
 		}
-
 
 
 	}

@@ -27,7 +27,7 @@ namespace Gym_Api.Controllers
 
 
 
-		[HttpGet("Getuserbyid{id}")]
+		[HttpGet("Getuserbyid/{id}")]
 		public async Task<IActionResult> GetUserById(string id)
 		{
 			var user = await _userService.GetUserByidAsync(id);
@@ -50,7 +50,7 @@ namespace Gym_Api.Controllers
 
 
 
-		[HttpPut("UpdateUser{userId}")]
+		[HttpPut("UpdateUser/{userId}")]
 		public async Task<IActionResult> UpdateUser(string userId, [FromBody] UpdateUserDto dto)
 		{
 			var success = await _userService.UpdateUserdataAsync(userId, dto);
@@ -64,7 +64,7 @@ namespace Gym_Api.Controllers
 
 
 
-		[HttpDelete("DeleteUser{userId}")]
+		[HttpDelete("DeleteUser/{userId}")]
 		public async Task<IActionResult> DeleteUser(string userId)
 		{
 			var success = await _userService.DeleteUserdataAsync(userId);

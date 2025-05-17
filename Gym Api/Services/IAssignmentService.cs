@@ -7,7 +7,7 @@ namespace Gym_Api.Survices
 	{
 		public Task<string> AddAssignmentAsync(CreateAssignmentDto dto);
 		public Task<List<Assignment>> GetUserAssignmentsByDayAsync(string userId, string day);
-
+		public Task<List<Assignment>> GetAllUserAssignmentsAsync(string userId);
 
 	}
 }

@@ -16,12 +16,14 @@ namespace Gym_Api.Data
 			modelBuilder.Entity<Subscribe>()
 			.HasOne(s => s.User)
 			.WithMany(u => u.Subscriptions)
-			.HasForeignKey(s => s.User_ID);
+			.HasForeignKey(s => s.User_ID)
+			.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<Subscribe>()
 				.HasOne(s => s.Coach)
 				.WithMany(c => c.Subscriptions)
-				.HasForeignKey(s => s.Coach_ID);
+				.HasForeignKey(s => s.Coach_ID)
+				.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<NutritionPlan>()
 			.HasOne(n => n.coach)
@@ -29,7 +31,12 @@ namespace Gym_Api.Data
 			.HasForeignKey(np => np.Coach_ID)
 			.OnDelete(DeleteBehavior.Cascade);
 
-			
+			modelBuilder.Entity<NutritionPlan>()
+	        .HasOne(np => np.user)
+	        .WithMany(u => u.NutritionPlans)
+	        .HasForeignKey(np => np.User_ID)
+	        .OnDelete(DeleteBehavior.Cascade);
+
 
 			modelBuilder.Entity<Order>()
 			.HasOne(o => o.User)

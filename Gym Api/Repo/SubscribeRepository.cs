@@ -20,7 +20,7 @@ namespace Gym_Api.Repo
 
 		public async Task<Subscribe> GetSubscribeById(int id)
 		{
-			return await _context.Subscriptions.FirstOrDefaultAsync(s => s.Subscribe_ID == id);
+			return await _context.Subscriptions.Include(s => s.User).ThenInclude(s => s.ApplicationUser).FirstOrDefaultAsync(s => s.Subscribe_ID == id);
 		}
 
 
@@ -58,6 +58,7 @@ namespace Gym_Api.Repo
 			return true;
 			
 		}
+	
 
 		public async Task<bool> RejectSubscriptionAsync(Subscribe subscribe)
 		{

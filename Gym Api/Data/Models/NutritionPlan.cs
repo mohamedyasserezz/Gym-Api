@@ -28,6 +28,7 @@ namespace Gym_Api.Data.Models
 		public Coach coach { get; set; }
 
 		[ForeignKey("User")]
-		public string User_ID { get; set; }	
+		public string User_ID { get; set; }
+		public User user { get; set; }
 	}
 }

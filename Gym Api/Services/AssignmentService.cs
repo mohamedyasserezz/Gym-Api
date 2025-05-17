@@ -42,5 +42,12 @@ namespace Gym_Api.Survices
 			return await _repository.GetUserAssignmentsByDayAsync(userId, day);
 		}
 
+
+		public async Task<List<Assignment>> GetAllUserAssignmentsAsync(string userId)
+		{
+			return await _repository.GetAllUserAssignmentsAsync(userId);
+		}
+
+
 	}
 }
