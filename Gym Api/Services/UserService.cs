@@ -14,7 +14,7 @@ namespace Gym_Api.Services
 		}
 
 
-		public async Task<List<User>> GetAllUsersAsync()
+		public async Task<List<UserList>> GetAllUsersAsync()
 		{
 			return await _repository.GetAllUsers();
 		}
