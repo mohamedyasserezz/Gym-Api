@@ -16,7 +16,7 @@ namespace Gym_Api.Survices
 
 
 
-		public async Task<List<Coach>> GetAllCoachesAsync()
+		public async Task<List<CoachList>> GetAllCoachesAsync()
 		{
 			return await _repository.GetAllAsyncR();
 		}
@@ -29,19 +29,19 @@ namespace Gym_Api.Survices
 		}
 
 
-		public async Task<List<Coach>?> GetCoachesBySpecializationAsync(string specialization)
+		public async Task<List<CoachList>?> GetCoachesBySpecializationAsync(string specialization)
 		{
 			return await _repository.GetBySpecializationAsyncR(specialization);
 		}
 
 
-		public async Task<List<Coach>> GetApprovedCoachesAsync()
+		public async Task<List<CoachList>> GetApprovedCoachesAsync()
 		{
 			return await _repository.GetApprovedCoachesAsyncR();
 		}
 
 
-		public async Task<List<Coach>> GetUnapprovedCoachesAsync()
+		public async Task<List<CoachList>> GetUnapprovedCoachesAsync()
 		{
 		   return await	_repository.GetUnapprovedCoachesAsyncR();
 		}
