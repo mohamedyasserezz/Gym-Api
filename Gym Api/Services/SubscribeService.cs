@@ -26,13 +26,17 @@ namespace Gym_Api.Survices
 			return await _repository.GetSubscribeById(id);
 		}
 
+		public async Task<List<Subscribe>> GetSubscribeByUseridAsync(string userid)
+		{
+			return await _repository.GetSubscribeByUserIdAsyncR(userid);
+		}
 
-		public async Task<string> CreateSubscriptionAsync(CreateSubscriptionDto dto)
+		public async Task<Subscribe> CreateSubscriptionAsync(CreateSubscriptionDto dto)
 		{
 			// تحقق إذا المستخدم مشترك بالفعل
 			var hasSubscription = await _repository.HasActiveSubscriptionAsync(dto.User_ID, dto.Coach_ID);
 			if (hasSubscription)
-				return "أنت مشترك بالفعل مع هذا الكوتش.";
+				return null;
 
 			// حفظ صورة إثبات الدفع
 			var proofPath = await _fileService.SaveFileAsync(dto.PaymentProof, "PaymentProofs");
@@ -62,7 +66,7 @@ namespace Gym_Api.Survices
 				};
 			}
 			await _repository.AddSubscriptionAsync(subscription);
-			return "تم إنشاء الاشتراك بنجاح، في انتظار موافقة الإدارة.";
+			return subscription;
 		}
 
 

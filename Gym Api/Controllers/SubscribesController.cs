@@ -1,4 +1,5 @@
-﻿using Gym_Api.Data.Models;
+﻿using Gym_Api.Common.Consts;
+using Gym_Api.Data.Models;
 using Gym_Api.DTO;
 using Gym_Api.Survices;
 using Microsoft.AspNetCore.Http;
@@ -41,13 +42,28 @@ namespace Gym_Api.Controllers
 		}
 
 
+		[HttpGet("GetSubscribeByUserId/{Userid}")]
+		public async Task<IActionResult> GetByUserId(string Userid)
+		{
+			var subsccibe = await _subscribeService.GetSubscribeByUseridAsync(Userid);
+			if (subsccibe == null || subsccibe.Count == 0)
+			{
+				return NotFound($"No subscriptions found for user ID: {Userid}");
+				
+			}
+			return Ok(subsccibe);
+		}
 
 
 		[HttpPost("AddNewSubscribe")]
 		public async Task<IActionResult> CreateSubscription([FromForm] CreateSubscriptionDto dto)
 		{
-			var result = await _subscribeService.CreateSubscriptionAsync(dto);
-			return Ok(result);
+			var subscription = await _subscribeService.CreateSubscriptionAsync(dto);
+
+			if (subscription == null)
+				return BadRequest("ربما أنت مشترك بالفعل مع هذا الكوتش، أو حدث خطأ أثناء إنشاء الاشتراك. يُرجى التحقق والمحاولة مرة أخرى.");
+
+			return Ok(subscription); 
 		}
 
 

@@ -23,6 +23,15 @@ namespace Gym_Api.Repo
 			return await _context.Subscriptions.Include(s => s.User).ThenInclude(s => s.ApplicationUser).FirstOrDefaultAsync(s => s.Subscribe_ID == id);
 		}
 
+		public async Task<List<Subscribe>> GetSubscribeByUserIdAsyncR(string userId)
+		{
+			return await _context.Subscriptions
+				.Include(s => s.User)
+					.ThenInclude(u => u.ApplicationUser)
+				.Where(s => s.User_ID == userId)
+				.ToListAsync();
+		}
+
 
 		public async Task<bool> HasActiveSubscriptionAsync(string userId, string coachId)
 		{
@@ -92,7 +101,7 @@ namespace Gym_Api.Repo
 		public async Task<List<CoachSubscriptionDto>> GetUserSubscriptionsAsync(string userId)
 		{
 			return await _context.Subscriptions
-				.Where(s => s.User_ID == userId && s.IsPaid && s.IsApproved && s.EndDate > DateTime.UtcNow)
+				.Where(s => s.User_ID == userId)
 				.Select(s => new CoachSubscriptionDto
 				{
 					CoachId = s.Coach.UserId,

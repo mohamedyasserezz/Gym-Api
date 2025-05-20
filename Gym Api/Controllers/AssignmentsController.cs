@@ -52,7 +52,7 @@ namespace Gym_Api.Controllers
 
 			if (assignments == null || !assignments.Any())
 			{
-				return NotFound($"لا توجد مهام للمسخدم {userId}");
+				return Ok(new { message = $"{userId} لا توجد مهام للمستخدم" });
 			}
 
 			return Ok(assignments);
