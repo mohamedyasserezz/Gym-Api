@@ -7,6 +7,7 @@ namespace Gym_Api.Repo
 	{
 		public Task<List<Subscribe>> GetAllSubscriptionsAsync();
 		public Task<Subscribe> GetSubscribeById(int id);
+		public Task<List<Subscribe>> GetSubscribeByUserIdAsyncR(string userId);
 		public Task<bool> HasActiveSubscriptionAsync(string userId, string coachId);
 		public Task<Subscribe> AddSubscriptionAsync(Subscribe subscribe);
 		public Task<List<Subscribe>> GetPendingSubscriptionsAsync();

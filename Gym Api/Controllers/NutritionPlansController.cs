@@ -33,7 +33,7 @@ namespace Gym_Api.Controllers
 
 			if (plans == null || !plans.Any())
 			{
-				return NotFound($"لا توجد خطط غذائية للمستخدم ذو الـ userId: {userId}");
+				return Ok(new { message = $"{userId} لا توجد خطه غذائيه للمستخدم" });
 			}
 
 			return Ok(plans);
