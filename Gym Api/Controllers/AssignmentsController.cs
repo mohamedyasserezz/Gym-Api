@@ -21,13 +21,17 @@ namespace Gym_Api.Controllers
 
 
 
-		[HttpPost("AddNewAssignmentForUser")]
-		public async Task<IActionResult> AddAssignment([FromBody] CreateAssignmentDto dto)
+		[HttpPost("AddNewAssignmentsForUser")]
+		public async Task<IActionResult> AddAssignments([FromBody] BulkCreateAssignmentDto dto)
 		{
+			if (dto.Assignments == null || !dto.Assignments.Any())
+			{
+				return BadRequest("يجب إدخال قائمة التمارين");
+			}
+
 			var result = await _assignmentService.AddAssignmentAsync(dto);
 			return Ok(result);
 		}
-
 
 
 		[HttpGet("user/{userId}/day/{day}")]

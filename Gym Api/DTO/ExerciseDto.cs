@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace Gym_Api.Data.Models
+﻿namespace Gym_Api.DTO
 {
-	public class Exercise
+	public class ExerciseDto
 	{
-		[Key]
 		public int Exercise_ID { get; set; }
 		public string Exercise_Name { get; set; }
 		public string Description { get; set; }
@@ -14,9 +10,8 @@ namespace Gym_Api.Data.Models
 		public int Duration { get; set; }
 		public string Target_Muscle { get; set; }
 		public int Difficulty_Level { get; set; }
-		public int Calories_Burned { get; set; }
 		public int Category_ID { get; set; }
-		public Category Category { get; set; }
-		public ICollection<AssignmentExercise> AssignmentExercises { get; set; } = new List<AssignmentExercise>();
+
+		public int Calories_Burned { get; set; }
 	}
 }

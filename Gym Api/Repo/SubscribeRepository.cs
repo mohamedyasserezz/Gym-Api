@@ -55,7 +55,15 @@ namespace Gym_Api.Repo
 		public async Task<List<Subscribe>> GetPendingSubscriptionsAsync()
 		{
 			return await _context.Subscriptions
-				.Where(s => !s.IsApproved)
+				.Where(s => s.Status == "pending")
+				.Include(s => s.User)
+				.ToListAsync();
+		}
+
+		public async Task<List<Subscribe>> GetRejectedSubscriptionsAsync()
+		{
+			return await _context.Subscriptions
+				.Where(s => s.Status == "Rejected")
 				.Include(s => s.User)
 				.ToListAsync();
 		}

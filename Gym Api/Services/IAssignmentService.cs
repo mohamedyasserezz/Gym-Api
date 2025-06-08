@@ -5,9 +5,9 @@ namespace Gym_Api.Survices
 {
 	public interface IAssignmentService
 	{
-		public Task<string> AddAssignmentAsync(CreateAssignmentDto dto);
+		public Task<string> AddAssignmentAsync(BulkCreateAssignmentDto createAssignmentDto); 
 		public Task<List<Assignment>> GetUserAssignmentsByDayAsync(string userId, string day);
-		public Task<List<Assignment>> GetAllUserAssignmentsAsync(string userId);
+		public Task<List<AssignmentViewDto>> GetAllUserAssignmentsAsync(string userId);
 
 	}
 }
