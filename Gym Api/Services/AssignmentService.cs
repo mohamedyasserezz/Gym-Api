@@ -16,6 +16,12 @@ namespace Gym_Api.Survices
 			_repository = repository;
 		}
 
+		public async Task<Assignment?> GetAssignmentByIdAsync(int id)
+		{
+			return await _repository.GetByIdAsyncR(id);
+		}
+
+
 
 		public async Task<string> AddAssignmentAsync(BulkCreateAssignmentDto createAssignmentDto)
 		{
@@ -59,6 +65,19 @@ namespace Gym_Api.Survices
 			return await _repository.GetAllUserAssignmentsAsync(userId);
 		}
 
+
+
+		public async Task<bool> CompleteAssignmentAsync(int id)
+		{
+			var assignment = await _repository.GetByIdAsyncR(id);
+			if (assignment == null || assignment.IsCompleted)
+			{
+				return false;
+			}
+			assignment.IsCompleted = true;
+			await _repository.CompleteAssignmetAsyncR(assignment);
+			return true;
+		}
 
 	}
 }

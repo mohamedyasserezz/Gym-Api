@@ -7,12 +7,8 @@ namespace Gym_Api.Data.Models
 	{
 		[Key]
 		public int OrderItem_ID { get; set; }
-
 		public int Quantity { get; set; }
-		public double TotalPrice { get; set; }
-		//OrderItem.TotalPrice = Product.Price * Quantity
-		//Order.Total_Price = Sum of all OrderItems.TotalPrice
-
+		public double ItemTotalPrice { get; set; } // سعر المنتج الواحد مع الكمية
 		[ForeignKey("Order")]
 		public int Order_ID { get; set; }
 		public Order Order { get; set; }

@@ -2,6 +2,7 @@
 using Gym_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Gym_Api.DTO;
+using Org.BouncyCastle.Crypto.Macs;
 
 namespace Gym_Api.Repo
 {
@@ -12,6 +13,11 @@ namespace Gym_Api.Repo
 		public AssignmentRepository(ApplicationDbContext context)
 		{
 			_context = context;
+		}
+
+		public async Task<Assignment?> GetByIdAsyncR(int id)
+		{
+			return await _context.Assignments.FirstOrDefaultAsync(a => a.Assignment_ID == id);
 		}
 
 		public async Task<bool> HasActiveSubscriptionAsync(string userId, string coachId)
@@ -72,6 +78,16 @@ namespace Gym_Api.Repo
 
 			return assignmentDtos;
 		}
+
+
+		public async Task<bool> CompleteAssignmetAsyncR(Assignment assignment)
+		{
+			_context.Assignments.Update(assignment);
+			await _context.SaveChangesAsync();
+			return true;
+		}
+
+
 
 	}
 }

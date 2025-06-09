@@ -100,9 +100,15 @@ namespace Gym_Api.Repo
 		   Gender =s.User.Gender,
 		   MedicalConditions =s.User.MedicalConditions,
 		   Allergies =s.User.Allergies,
-		   Fitness_Goal =s.User.Fitness_Goal
+		   Fitness_Goal =s.User.Fitness_Goal,
+		   Subscribe_ID = s.Subscribe_ID,
+		   StartDate = s.StartDate,
+		   EndDate = s.EndDate,
+		   Status = s.Status,
+		   SubscriptionType = s.SubscriptionType,
+		   IsApproved = s.IsApproved,
+		   IsPaid = s.IsPaid
 	              })
-			 
 	            .ToListAsync();
 		}
 

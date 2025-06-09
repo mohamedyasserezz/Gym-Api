@@ -13,5 +13,12 @@
 		public string? MedicalConditions { get; set; }//هل يعاني من امراض مزمنه
 		public string? Allergies { get; set; }//حساسيه من اطعمه معينه
 		public string Fitness_Goal { get; set; } = default!;
+		public int Subscribe_ID { get; set; }
+		public DateTime StartDate { get; set; } 
+		public DateTime EndDate { get; set; }
+		public string SubscriptionType { get; set; }
+		public string Status { get; set; } 
+		public bool IsPaid { get; set; } 
+		public bool IsApproved { get; set; } 
 	}
 }

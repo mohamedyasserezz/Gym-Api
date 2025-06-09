@@ -19,6 +19,18 @@ namespace Gym_Api.Controllers
 		}
 
 
+		[HttpGet("GetAssignmentById/{id}")]
+		public async Task<IActionResult> GetById(int id)
+		{
+			var assignment = await _assignmentService.GetAssignmentByIdAsync(id);
+			if (assignment == null)
+			{
+				return NotFound($"Assignment with id {id} not found");
+			}
+
+			return Ok(assignment);
+		}
+
 
 
 		[HttpPost("AddNewAssignmentsForUser")]
@@ -60,6 +72,17 @@ namespace Gym_Api.Controllers
 			}
 
 			return Ok(assignments);
+		}
+
+
+		[HttpPut("CompleteAssignment/{id}")]
+		public async Task<IActionResult> UserCompleteAssignment(int id)
+		{
+			var result = await _assignmentService.CompleteAssignmentAsync(id);
+			if (!result)
+				return NotFound("Assignment not found or already Completed");
+
+			return Ok("Assignment Completed successfully.");
 		}
 	}
 }
