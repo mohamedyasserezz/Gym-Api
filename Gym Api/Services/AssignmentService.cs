@@ -16,24 +16,41 @@ namespace Gym_Api.Survices
 			_repository = repository;
 		}
 
-
-		public async Task<string> AddAssignmentAsync(CreateAssignmentDto createAssignmentDto)
+		public async Task<Assignment?> GetAssignmentByIdAsync(int id)
 		{
-			var subscribtion = await _repository.HasActiveSubscriptionAsync(createAssignmentDto.UserId,createAssignmentDto.CoachId);
-			if (subscribtion)
+			return await _repository.GetByIdAsyncR(id);
+		}
+
+
+
+		public async Task<string> AddAssignmentAsync(BulkCreateAssignmentDto createAssignmentDto)
+		{
+			// التحقق من وجود اشتراك ساري
+			var hasActiveSubscription = await _repository.HasActiveSubscriptionAsync(createAssignmentDto.UserId, createAssignmentDto.CoachId);
+			if (!hasActiveSubscription)
+			{
+				return "لا يمكن إضافة المهام، لا يوجد اشتراك ساري للمستخدم";
+			}
+
+			// إضافة كل التمارين
+			foreach (var assignmentDto in createAssignmentDto.Assignments)
 			{
 				var newAssignment = new Assignment
 				{
 					User_ID = createAssignmentDto.UserId,
 					Coach_ID = createAssignmentDto.CoachId,
-					Exercise_ID = createAssignmentDto.ExerciseId,
-					Day = createAssignmentDto.Day,
-					Notes = createAssignmentDto.Notes
+					Day = assignmentDto.Day,
+					Notes = assignmentDto.Notes,
+					AssignmentExercises = assignmentDto.ExerciseIds.Select(exId => new AssignmentExercise
+					{
+						Exercise_ID = exId
+					}).ToList()
 				};
+
 				await _repository.AddAssignmentAsync(newAssignment);
-				return "تم إضافة المهمة للمشترك بنجاح";
 			}
-			return "لا يمكن إضافة المهمة، لا يوجد اشتراك ساري للمستخدم";
+
+			return "تم اضافه المهام للمشترك بنجاح";
 		}
 
 
@@ -43,11 +60,24 @@ namespace Gym_Api.Survices
 		}
 
 
-		public async Task<List<Assignment>> GetAllUserAssignmentsAsync(string userId)
+		public async Task<List<AssignmentViewDto>> GetAllUserAssignmentsAsync(string userId)
 		{
 			return await _repository.GetAllUserAssignmentsAsync(userId);
 		}
 
+
+
+		public async Task<bool> CompleteAssignmentAsync(int id)
+		{
+			var assignment = await _repository.GetByIdAsyncR(id);
+			if (assignment == null || assignment.IsCompleted)
+			{
+				return false;
+			}
+			assignment.IsCompleted = true;
+			await _repository.CompleteAssignmetAsyncR(assignment);
+			return true;
+		}
 
 	}
 }

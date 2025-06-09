@@ -140,6 +140,8 @@ namespace Gym_Api
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
             return services;
         }
     }

@@ -19,15 +19,31 @@ namespace Gym_Api.Controllers
 		}
 
 
-
-
-		[HttpPost("AddNewAssignmentForUser")]
-		public async Task<IActionResult> AddAssignment([FromBody] CreateAssignmentDto dto)
+		[HttpGet("GetAssignmentById/{id}")]
+		public async Task<IActionResult> GetById(int id)
 		{
+			var assignment = await _assignmentService.GetAssignmentByIdAsync(id);
+			if (assignment == null)
+			{
+				return NotFound($"Assignment with id {id} not found");
+			}
+
+			return Ok(assignment);
+		}
+
+
+
+		[HttpPost("AddNewAssignmentsForUser")]
+		public async Task<IActionResult> AddAssignments([FromBody] BulkCreateAssignmentDto dto)
+		{
+			if (dto.Assignments == null || !dto.Assignments.Any())
+			{
+				return BadRequest("يجب إدخال قائمة التمارين");
+			}
+
 			var result = await _assignmentService.AddAssignmentAsync(dto);
 			return Ok(result);
 		}
-
 
 
 		[HttpGet("user/{userId}/day/{day}")]
@@ -56,6 +72,17 @@ namespace Gym_Api.Controllers
 			}
 
 			return Ok(assignments);
+		}
+
+
+		[HttpPut("CompleteAssignment/{id}")]
+		public async Task<IActionResult> UserCompleteAssignment(int id)
+		{
+			var result = await _assignmentService.CompleteAssignmentAsync(id);
+			if (!result)
+				return NotFound("Assignment not found or already Completed");
+
+			return Ok("Assignment Completed successfully.");
 		}
 	}
 }

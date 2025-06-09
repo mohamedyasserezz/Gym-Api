@@ -17,32 +17,32 @@ namespace Gym_Api.Data
 			.HasOne(s => s.User)
 			.WithMany(u => u.Subscriptions)
 			.HasForeignKey(s => s.User_ID)
-			.OnDelete(DeleteBehavior.Cascade);
+			.OnDelete(DeleteBehavior.Restrict);
 
 			modelBuilder.Entity<Subscribe>()
 				.HasOne(s => s.Coach)
 				.WithMany(c => c.Subscriptions)
 				.HasForeignKey(s => s.Coach_ID)
-				.OnDelete(DeleteBehavior.Cascade);
+				.OnDelete(DeleteBehavior.Restrict);
 
 			modelBuilder.Entity<NutritionPlan>()
 			.HasOne(n => n.coach)
 			.WithMany(c => c.NutritionPlans)
 			.HasForeignKey(np => np.Coach_ID)
-			.OnDelete(DeleteBehavior.Cascade);
+			.OnDelete(DeleteBehavior.Restrict);
 
 			modelBuilder.Entity<NutritionPlan>()
 	        .HasOne(np => np.user)
 	        .WithMany(u => u.NutritionPlans)
 	        .HasForeignKey(np => np.User_ID)
-	        .OnDelete(DeleteBehavior.Cascade);
+	        .OnDelete(DeleteBehavior.Restrict);
 
 
 			modelBuilder.Entity<Order>()
 			.HasOne(o => o.User)
 			.WithMany(u => u.Orders)
 			.HasForeignKey(o => o.User_ID)
-			.OnDelete(DeleteBehavior.Cascade);
+			.OnDelete(DeleteBehavior.Restrict);
 
 			modelBuilder.Entity<OrderItem>()
 			.HasOne(oi => oi.Order)
@@ -70,5 +70,7 @@ namespace Gym_Api.Data
 		public DbSet<Order> Orders { get; set; }
 		public DbSet<Product> Products { get; set; }
 		public DbSet<OrderItem> OrderItems { get; set; }
+		public DbSet<AssignmentExercise> assignmentExercises { get; set; }
+
 	}
 }

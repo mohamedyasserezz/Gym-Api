@@ -2,6 +2,7 @@
 using Gym_Api.Data.Models;
 using Gym_Api.DTO;
 using Gym_Api.Survices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,11 +72,19 @@ namespace Gym_Api.Controllers
 
 
 		// ✅ Get all pending subscriptions
-		[HttpGet("pending")]
+		[HttpGet("GetAllpendingsubscriptions")]
 		public async Task<IActionResult> GetPendingSubscriptions()
 		{
 			var pendingSubscriptions = await _subscribeService.GetPendingSubscriptionsAsync();
 			return Ok(pendingSubscriptions);
+		}
+
+
+		[HttpGet("GetAllrejectedsubscriptions")]
+		public async Task<IActionResult> GetRejectedSubscriptions()
+		{
+			var subscriptions = await _subscribeService.GetRejectedSubscriptionsAsync();
+			return Ok(subscriptions);
 		}
 
 

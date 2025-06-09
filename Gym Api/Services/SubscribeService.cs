@@ -75,6 +75,11 @@ namespace Gym_Api.Survices
 			return await _repository.GetPendingSubscriptionsAsync();
 		}
 
+		public async Task<List<Subscribe>> GetRejectedSubscriptionsAsync()
+		{
+			return await _repository.GetRejectedSubscriptionsAsync();
+		}
+
 
 		public async Task<bool> ApproveSubscriptionAsync(int subscribeId)
 		{

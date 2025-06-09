@@ -12,7 +12,7 @@ namespace Gym_Api.Data.Configurations
 					.HasOne(e => e.Category)
 					.WithMany(c => c.Exercises)
 					.HasForeignKey(e => e.Category_ID)
-					.OnDelete(DeleteBehavior.Cascade);
+					.OnDelete(DeleteBehavior.Restrict);
 
 		}
 	}

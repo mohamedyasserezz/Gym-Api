@@ -19,8 +19,7 @@ namespace Gym_Api.Data.Models
 		public string Coach_ID { get; set; }
 		public Coach Coach { get; set; }
 
-		[ForeignKey("Exercise")]
-		public int Exercise_ID { get; set; }
-		public Exercise Exercise { get; set; }
+		public ICollection<AssignmentExercise> AssignmentExercises { get; set; } = new List<AssignmentExercise>();
+
 	}
 }

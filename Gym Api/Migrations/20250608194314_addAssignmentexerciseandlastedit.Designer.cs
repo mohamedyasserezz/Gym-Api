@@ -4,6 +4,7 @@ using Gym_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250608194314_addAssignmentexerciseandlastedit")]
+    partial class addAssignmentexerciseandlastedit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +189,7 @@ namespace Gym_Api.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CANC-APP.COM",
                             NormalizedUserName = "MOHAMED_YASSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKlr2ftcptt+ShnODhfjQqAmiKFmngAdr8OmXLhykX0xIX7kAv+yBVBd5oNSIMNk7A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDhGBiQXEq3llwpxMZu2D7oI64vWsgTF0YxXm62u9SN8/pDJj1gO+k5Za15XXm8lyw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "55BF92C9EF0249CDA210D85D1A851BC9",
                             TwoFactorEnabled = false,
@@ -430,14 +433,6 @@ namespace Gym_Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Order_id"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
 
@@ -451,14 +446,7 @@ namespace Gym_Api.Migrations
                     b.Property<string>("PaymentProof")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RecipientName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("TotalPrice")
+                    b.Property<double>("Total_Price")
                         .HasColumnType("float");
 
                     b.Property<string>("User_ID")
@@ -480,9 +468,6 @@ namespace Gym_Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItem_ID"));
 
-                    b.Property<double>("ItemTotalPrice")
-                        .HasColumnType("float");
-
                     b.Property<int>("Order_ID")
                         .HasColumnType("int");
 
@@ -491,6 +476,9 @@ namespace Gym_Api.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("OrderItem_ID");
 
