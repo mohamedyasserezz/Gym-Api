@@ -17,6 +17,30 @@ namespace Gym_Api.Controllers
 		}
 
 
+		[HttpGet("GetAllOrders")]
+		public async Task<IActionResult> GetAllOrders()
+		{
+			var orders = await _orderService.GetAllOrdersAsync();
+			return Ok(orders);
+		}
+
+
+
+
+
+		[HttpGet("GetOrdersByUserId/{Userid}")]
+		public async Task<IActionResult> GetByUserId(string Userid)
+		{
+			var order = await _orderService.GetAllUserOrdersAsync(Userid);
+			if (order == null || order.Count == 0)
+			{
+				return NotFound($"No Orders found for user ID: {Userid}");
+
+			}
+			return Ok(order);
+		}
+
+
 		[HttpGet("GetOrderById/{id}")]
 		public async Task<IActionResult> GetOrderById(int id)
 		{
@@ -36,6 +60,53 @@ namespace Gym_Api.Controllers
 			return Ok(result);
 		}
 
+
+
+		[HttpGet("GetAllpendingOrders")]
+		public async Task<IActionResult> GetPendingOrders()
+		{
+			var pendingorders = await _orderService.GetAllPendingOrdersAsync();
+			return Ok(pendingorders);
+		}
+
+
+
+		[HttpPut("ApproveOrder/{id}")]
+		public async Task<IActionResult> ApproveOrder(int id)
+		{
+
+			var result = await _orderService.AcceptOrderAsync(id);
+			if (!result)
+			{
+				return BadRequest("فشل في الموافقة على الطلب.");
+			}
+
+			return Ok("تمت الموافقة على الطلب بنجاح.");
+		}
+
+
+
+
+		[HttpPut("RejectOrder/{id}")]
+		public async Task<IActionResult> RejectOrder(int id)
+		{
+			var result = await _orderService.RejectOrderAsync(id);
+			if (!result)
+				return BadRequest("فشل في رفض الطلب. تحقق من حالة الطلب أو الدفع.");
+
+			return Ok("تم رفض الطلب بنجاح");
+		}
+
+		[HttpPut("UpdateOrder/{OrderId}")]
+		public async Task<IActionResult> Updateorder(int OrderId, [FromBody] UpdateOrderDto dto)
+		{
+			var result = await _orderService.UpdateOrderAsync(OrderId, dto);
+			if (!result)
+			{
+				return NotFound("Order not found");
+			}
+			return Ok("Order Updated Successfuly");
+		}
 
 	}
 }
