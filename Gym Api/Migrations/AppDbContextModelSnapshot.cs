@@ -227,7 +227,7 @@ namespace Gym_Api.Migrations
 
                     b.HasIndex("User_ID");
 
-                    b.ToTable("Assignments");
+                    b.ToTable("Assignments", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.AssignmentExercise", b =>
@@ -250,7 +250,7 @@ namespace Gym_Api.Migrations
 
                     b.HasIndex("Exercise_ID");
 
-                    b.ToTable("assignmentExercises");
+                    b.ToTable("assignmentExercises", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.Category", b =>
@@ -271,7 +271,7 @@ namespace Gym_Api.Migrations
 
                     b.HasKey("Category_ID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.Coach", b =>
@@ -303,7 +303,7 @@ namespace Gym_Api.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Coaches");
+                    b.ToTable("Coaches", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.Exercise", b =>
@@ -350,7 +350,7 @@ namespace Gym_Api.Migrations
 
                     b.HasIndex("Category_ID");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercises", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.NutritionPlan", b =>
@@ -419,7 +419,7 @@ namespace Gym_Api.Migrations
 
                     b.HasIndex("User_ID");
 
-                    b.ToTable("NutritionPlans");
+                    b.ToTable("NutritionPlans", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.Order", b =>
@@ -469,7 +469,7 @@ namespace Gym_Api.Migrations
 
                     b.HasIndex("User_ID");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.OrderItem", b =>
@@ -498,7 +498,7 @@ namespace Gym_Api.Migrations
 
                     b.HasIndex("Product_ID");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.Product", b =>
@@ -532,7 +532,7 @@ namespace Gym_Api.Migrations
 
                     b.HasKey("Product_ID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.Subscribe", b =>
@@ -580,7 +580,7 @@ namespace Gym_Api.Migrations
 
                     b.HasIndex("User_ID");
 
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("Gym_Api.Data.Models.User", b =>
@@ -613,7 +613,7 @@ namespace Gym_Api.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

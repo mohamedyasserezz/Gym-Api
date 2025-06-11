@@ -72,5 +72,6 @@ namespace Gym_Api.Data
 		public DbSet<OrderItem> OrderItems { get; set; }
 		public DbSet<AssignmentExercise> assignmentExercises { get; set; }
 
+
 	}
 }

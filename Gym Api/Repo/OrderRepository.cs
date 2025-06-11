@@ -12,11 +12,20 @@ namespace Gym_Api.Repo
 			_context = context;
 		}
 
+		public async Task<List<Order>> GetAllOrders()
+		{
+			return await _context.Orders.ToListAsync();
+		}
+
+		public async Task<List<Order>> GetAllUserOrders(string UserId)
+		{
+			return await _context.Orders.Where(o => o.User_ID == UserId).ToListAsync();
+		}
 
 
 		public async Task<Order?> GetOrderByIdR(int id)
 		{
-			return await _context.Orders.FirstOrDefaultAsync(s => s.Order_id == id);
+			return await _context.Orders.Include(o => o.OrderItems).ThenInclude(p => p.Product).FirstOrDefaultAsync(s => s.Order_id == id);
 		}
 
 		public async Task<Product?> GetProductByIdAsync(int id)
@@ -37,6 +46,35 @@ namespace Gym_Api.Repo
 			await _context.SaveChangesAsync();
 			return true;
 		}
+
+
+		public async Task<List<Order>> GetAllPendingOrdersAsync()
+		{
+			return await _context.Orders.Where(s => s.Order_Status == "Pending").ToListAsync();
+		}
+
+		public async Task<bool> AcceptOrderR(Order order)
+		{
+			_context.Orders.Update(order);
+			await _context.SaveChangesAsync();
+			return true;
+
+		}
+
+
+		public async Task<bool> RejectOrderR(Order order)
+		{
+			_context.Orders.Update(order);
+			await _context.SaveChangesAsync();
+			return true;
+		}
+		public async Task<bool> UpdateOrder(Order order)
+		{
+			_context.Orders.Update(order);
+			await _context.SaveChangesAsync();
+			return true;
+		}
+
 
 	}
 }
