@@ -35,6 +35,10 @@ namespace Gym_Api.Survices
 			// إضافة كل التمارين
 			foreach (var assignmentDto in createAssignmentDto.Assignments)
 			{
+				if (assignmentDto.ExerciseIds == null || !assignmentDto.ExerciseIds.Any())
+				{
+					return "لا يمكن إضافة مهمة بدون تمارين. يرجى إدخال قائمة تمارين غير فارغة.";
+				}
 				var newAssignment = new Assignment
 				{
 					User_ID = createAssignmentDto.UserId,
@@ -54,7 +58,7 @@ namespace Gym_Api.Survices
 		}
 
 
-		public async Task<List<Assignment>> GetUserAssignmentsByDayAsync(string userId, string day)
+		public async Task<List<Assignment>> GetUserAssignmentsByDayAsync(string userId, DateTime day)
 		{
 			return await _repository.GetUserAssignmentsByDayAsync(userId, day);
 		}

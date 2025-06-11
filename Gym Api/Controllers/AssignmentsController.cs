@@ -40,14 +40,17 @@ namespace Gym_Api.Controllers
 			{
 				return BadRequest("يجب إدخال قائمة التمارين");
 			}
-
 			var result = await _assignmentService.AddAssignmentAsync(dto);
+			if (result.StartsWith("لا يمكن")) // التحقق إذا كانت رسالة خطأ
+			{
+				return BadRequest(result);
+			}
 			return Ok(result);
 		}
 
 
 		[HttpGet("user/{userId}/day/{day}")]
-		public async Task<IActionResult> GetUserAssignmentsByDay(string userId, string day)
+		public async Task<IActionResult> GetUserAssignmentsByDay(string userId, DateTime day)
 		{
 			var assignments = await _assignmentService.GetUserAssignmentsByDayAsync(userId, day);
 

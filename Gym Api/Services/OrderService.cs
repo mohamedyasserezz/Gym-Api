@@ -89,7 +89,6 @@ namespace Gym_Api.Services
 				});
 			}
 
-			var fileName = await _fileService.SaveFileAsync(createOrderDto.PaymentProof, "PaymentProofs");
 
 			var order = new Order
 			{
@@ -100,11 +99,14 @@ namespace Gym_Api.Services
 				PhoneNumber = createOrderDto.PhoneNumber,
 				Order_Date = DateTime.UtcNow,
 				TotalPrice = total, // المجموع الكلي
-				PaymentProof = fileName,
 				IsPaid = false,
 				Order_Status = "Pending",
 				OrderItems = items
 			};
+			if (createOrderDto.PaymentProof is not null)
+			{
+				order.PaymentProof = await _fileService.SaveFileAsync(createOrderDto.PaymentProof, "PaymentProofs");
+			}
 
 			await _repository.AddOrderR(order);
 			// إرجاع تفاصيل الطلب

@@ -4,6 +4,7 @@ using Gym_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250611183355_EditRelationBetweenAssignmentandAE")]
+    partial class EditRelationBetweenAssignmentandAE
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +189,7 @@ namespace Gym_Api.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CANC-APP.COM",
                             NormalizedUserName = "MOHAMED_YASSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEB6gf1+JtLZAjsEOqgiWzahdqGZVdMcuOKzIZfZpFaokqe3sLRj9I+mUSxMwrG+O3w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDkJR9ZCB8pjBSC3M0ScwQYXkr6NiZdVWGBo0/cuyVIMWuPN/TKHHhOro74R0aI2Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "55BF92C9EF0249CDA210D85D1A851BC9",
                             TwoFactorEnabled = false,
@@ -207,8 +210,9 @@ namespace Gym_Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Day")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Day")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
@@ -770,13 +774,13 @@ namespace Gym_Api.Migrations
                     b.HasOne("Gym_Api.Data.Models.Coach", "Coach")
                         .WithMany("Assignments")
                         .HasForeignKey("Coach_ID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Gym_Api.Data.Models.User", "User")
                         .WithMany("Assignments")
                         .HasForeignKey("User_ID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Coach");
@@ -789,13 +793,13 @@ namespace Gym_Api.Migrations
                     b.HasOne("Gym_Api.Data.Models.Assignment", "Assignment")
                         .WithMany("AssignmentExercises")
                         .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Gym_Api.Data.Models.Exercise", "Exercise")
                         .WithMany("AssignmentExercises")
                         .HasForeignKey("Exercise_ID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Assignment");
