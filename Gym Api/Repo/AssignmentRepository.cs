@@ -38,10 +38,10 @@ namespace Gym_Api.Repo
 			return assignment;
 		}
 
-		public async Task<List<Assignment>> GetUserAssignmentsByDayAsync(string userId, string day)
+		public async Task<List<Assignment>> GetUserAssignmentsByDayAsync(string userId, DateTime day)
 		{
 			return await _context.Assignments
-		.Where(a => a.User_ID.Trim().ToLower() == userId.Trim().ToLower() && a.Day.Trim() == day.Trim())
+		.Where(a => a.User_ID == userId && a.Day == day)
 		.Include(a => a.AssignmentExercises).ThenInclude(e => e.Exercise)
 		.ToListAsync();
 		}
