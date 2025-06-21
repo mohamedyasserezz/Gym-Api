@@ -33,12 +33,17 @@ namespace Gym_Api.Survices
 
 		public async Task<Subscribe> CreateSubscriptionAsync(CreateSubscriptionDto dto)
 		{
+			if (dto.PaymentProof == null || dto.PaymentProof.Length == 0)
+			{
+				Console.WriteLine("PaymentProof is null or empty.");
+				throw new ArgumentException("PaymentProof field is required and must contain a file.");
+			}
 			// تحقق إذا المستخدم مشترك بالفعل
 			var hasSubscription = await _repository.HasActiveSubscriptionAsync(dto.User_ID, dto.Coach_ID);
 			if (hasSubscription)
 				return null;
 
-			// حفظ صورة إثبات الدفع
+			// حفظ صورة 
 			var proofPath = await _fileService.SaveFileAsync(dto.PaymentProof, "PaymentProofs");
 
 			// إنشاء الاشتراك الجديد
@@ -48,21 +53,23 @@ namespace Gym_Api.Survices
 				Coach_ID = dto.Coach_ID,
 				SubscriptionType = dto.SubscriptionType,
 				PaymentProof = proofPath,
+				Notes = dto.Notes,
 				Status ="pending",
 				IsPaid = false,
 				IsApproved = false,
 				StartDate = DateTime.UtcNow,
 				EndDate = CalculateEndDate(dto.SubscriptionType)
 			};
-
+			
 			// ميثود صغيرة نحسب بيها تاريخ الانتهاء حسب النوع
-			  DateTime CalculateEndDate(string subscriptionType)
+			DateTime CalculateEndDate(string subscriptionType)
 			{
 				return subscriptionType switch
 				{
 					"3_Months" => DateTime.UtcNow.AddMonths(3),
 					"6_Months" => DateTime.UtcNow.AddMonths(6),
-					"1_Year" => DateTime.UtcNow.AddMonths(12)
+					"1_Year" => DateTime.UtcNow.AddMonths(12),
+					_ => throw new ArgumentException("Subscription type not supported", nameof(subscriptionType))
 				};
 			}
 			await _repository.AddSubscriptionAsync(subscription);

@@ -4,6 +4,7 @@ using Gym_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250617092915_editsubscribedata")]
+    partial class editsubscribedata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +189,7 @@ namespace Gym_Api.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CANC-APP.COM",
                             NormalizedUserName = "MOHAMED_YASSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHJ7Do6Ws8WOMJ1m7ffzEWYOWOqG4a3+HDL63jK/25yS6cY5a3+xebtvNrRpWVJn6Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH5/JwrM3FCPy+CzRWqajKr/OD4JJAxAxvpM0B1vZc6O5gMfLY/cs1RhZ/7iUnjqPg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "55BF92C9EF0249CDA210D85D1A851BC9",
                             TwoFactorEnabled = false,
@@ -554,9 +557,6 @@ namespace Gym_Api.Migrations
 
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentProof")
                         .IsRequired()

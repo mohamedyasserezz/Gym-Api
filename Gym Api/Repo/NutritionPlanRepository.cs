@@ -23,6 +23,12 @@ namespace Gym_Api.Repo
 		}
 
 
+		public async Task<NutritionPlan> GetNutritionPlanByUserAndDayAsync(string userId, string day)
+		{
+			return await _context.NutritionPlans
+				.FirstOrDefaultAsync(np => np.User_ID == userId && np.Day == day);
+		}
+
 		public async Task<NutritionPlan> AddNutritionPlanAsync(NutritionPlan plan)
 		{
 			_context.NutritionPlans.Add(plan);
