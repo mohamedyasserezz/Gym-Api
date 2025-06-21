@@ -13,7 +13,9 @@ namespace Gym_Api.Data.Models
 		public string Status { get; set; } = "pending"; 
 		public bool IsPaid { get; set; } = false;
 		public bool IsApproved { get; set; } = false;
-		public string? PaymentProof { get; set; }
+		public string PaymentProof { get; set; }
+		public string? Notes { get; set; }
+
 
 		[ForeignKey("User")]
 		public string User_ID { get; set; }

@@ -29,16 +29,23 @@ namespace Gym_Api.Survices
 			var hasActiveSubscription = await _repository.HasActiveSubscriptionAsync(createAssignmentDto.UserId, createAssignmentDto.CoachId);
 			if (!hasActiveSubscription)
 			{
-				return "لا يمكن إضافة المهام، لا يوجد اشتراك ساري للمستخدم";
+				return "لا يمكن إضافة مهمه، لا يوجد اشتراك ساري للمستخدم";
 			}
 
-			// إضافة كل التمارين
 			foreach (var assignmentDto in createAssignmentDto.Assignments)
 			{
+				// التحقق من وجود مهمة بنفس اليوم
+				var existingAssignment = await _repository.GetAssignmentByUserAndDayAsync(createAssignmentDto.UserId, assignmentDto.Day);
+				if (existingAssignment != null)
+				{
+					return "لا يمكن إضافة مهمة في نفس اليوم";
+				}
+
 				if (assignmentDto.ExerciseIds == null || !assignmentDto.ExerciseIds.Any())
 				{
 					return "لا يمكن إضافة مهمة بدون تمارين. يرجى إدخال قائمة تمارين غير فارغة.";
 				}
+
 				var newAssignment = new Assignment
 				{
 					User_ID = createAssignmentDto.UserId,
@@ -54,8 +61,9 @@ namespace Gym_Api.Survices
 				await _repository.AddAssignmentAsync(newAssignment);
 			}
 
-			return "تم اضافه المهام للمشترك بنجاح";
+			return "تم إضافة المهام للمشترك بنجاح";
 		}
+
 
 
 		public async Task<List<Assignment>> GetUserAssignmentsByDayAsync(string userId, DateTime day)

@@ -46,6 +46,12 @@ namespace Gym_Api.Repo
 		.ToListAsync();
 		}
 
+		public async Task<Assignment> GetAssignmentByUserAndDayAsync(string userId, DateTime day)
+		{
+			return await _context.Assignments
+				.FirstOrDefaultAsync(np => np.User_ID == userId && np.Day == day);
+		}
+
 
 		public async Task<List<AssignmentViewDto>> GetAllUserAssignmentsAsync(string userId)
 		{

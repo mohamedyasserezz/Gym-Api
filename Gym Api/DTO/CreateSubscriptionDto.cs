@@ -12,5 +12,7 @@ namespace Gym_Api.DTO
 		public string SubscriptionType { get; set; } // "شهر" - "3 شهور" - "6 شهور"
 		[Required]
 		public IFormFile PaymentProof { get; set; }
+		public string? Notes { get; set; }
+
 	}
 }
