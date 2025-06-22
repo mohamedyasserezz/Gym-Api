@@ -14,6 +14,7 @@ namespace Gym_Api.Data.Models
 		public string? MedicalConditions { get; set; }//هل يعاني من امراض مزمنه
 		public string? Allergies { get; set; }//حساسيه من اطعمه معينه
 		public string Fitness_Goal { get; set; } = default!;
+		public string InBody { get; set; }
 
 		public ICollection<Assignment> Assignments = new List<Assignment>();
 		public ICollection<Subscribe> Subscriptions = new List<Subscribe>();
